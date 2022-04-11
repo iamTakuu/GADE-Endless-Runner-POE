@@ -10,7 +10,8 @@ public class PlayerMovement : MonoBehaviour
     private float horizontalInput;
     public float horizontalMultiply = 2f;
 
-    public float xBoundary;
+    //[Header("Required Component")]
+    public AnimationControllerScript AnimationController;
 
     private void Awake()
     {
@@ -30,6 +31,8 @@ public class PlayerMovement : MonoBehaviour
         Vector3 horizontalMovement = transform.right * horizontalInput * moveSpeed * Time.fixedDeltaTime * horizontalMultiply;
         rigidBody.MovePosition(rigidBody.position + forwardMovement + horizontalMovement);
 
-        
+        AnimationController.SetIsMoving(forwardMovement != Vector3.zero);
+
+
     }
 }
