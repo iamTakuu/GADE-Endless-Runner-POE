@@ -12,7 +12,8 @@ public class AnimationControllerScript : MonoBehaviour
 
     
     private static readonly int IsMoving = Animator.StringToHash("isMoving");
-    
+    private static readonly int IsJumping = Animator.StringToHash("isJumping");
+    private static readonly int IsGrounded = Animator.StringToHash("isGrounded");
 
     #endregion
 
@@ -29,4 +30,14 @@ public class AnimationControllerScript : MonoBehaviour
     }
  
     #endregion
+
+    public void SetIsJumping(bool value)
+    {
+        Animator.SetBool(IsJumping, value);
+    }
+
+    public void SetIsGrounded(bool value)
+    {
+        Animator.SetBool(IsGrounded, value);
+    }
 }
