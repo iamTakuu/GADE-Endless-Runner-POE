@@ -1,5 +1,5 @@
 
-using System;
+
 using UnityEngine;
 
 public class WorldTile : MonoBehaviour
@@ -8,7 +8,7 @@ public class WorldTile : MonoBehaviour
  
  private void Start()
  {
-  worldSpawner = GameObject.FindObjectOfType<WorldSpawner>();
+  worldSpawner = FindObjectOfType<WorldSpawner>();
   
  }
 
