@@ -9,7 +9,7 @@ public class PlayerMove : MonoBehaviour
     private AnimationControllerScript AnimationController;
     private Vector3 move;
     public float forwardSpeed = 30f;
-    
+    public float distanceToGround;
 
     private int desiredLane = 1;//0:left, 1:middle, 2:right
     public float laneDistance = 10f;//The distance between tow lanes
@@ -44,7 +44,7 @@ public class PlayerMove : MonoBehaviour
         //animator.SetBool("isGameStarted", true);
         move.z = forwardSpeed;
 
-        isGrounded = controller.isGrounded;
+        isGrounded = GroundCheck();
         
         AnimationController.SetIsGrounded(isGrounded);
         if (isGrounded && velocity.y < 0)
@@ -118,7 +118,15 @@ public class PlayerMove : MonoBehaviour
    
         velocity.y = Mathf.Sqrt(jumpHeight * 2 * -gravity);
     }
-    
+    private bool GroundCheck()
+    {
+        //This gets the total height of the collider, splits it in half
+        //then cast a beeaaaam downwards from the center to it's feet
+        distanceToGround = GetComponent<CharacterController>().bounds.size.y / 2;
+        return (Physics.Raycast(transform.position, Vector3.down, distanceToGround-2f));
+        
+        
+    }
     
 
 }
