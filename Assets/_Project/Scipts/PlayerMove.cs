@@ -45,6 +45,7 @@ public class PlayerMove : MonoBehaviour
         move.z = forwardSpeed;
 
         isGrounded = controller.isGrounded;
+        
         AnimationController.SetIsGrounded(isGrounded);
         if (isGrounded && velocity.y < 0)
             velocity.y = -1f;
