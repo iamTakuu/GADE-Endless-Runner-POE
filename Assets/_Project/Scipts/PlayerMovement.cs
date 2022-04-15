@@ -23,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
     public AnimationControllerScript AnimationController;
 
     public int targetLane = 1; //0: left, 1 Mid, 2 right
-    public float laneDist = 3f; //Dist between lanes
+    public float laneDist; //Dist between lanes
 
 
     private void Awake()
@@ -77,7 +77,7 @@ public class PlayerMovement : MonoBehaviour
         //.Move is called with the exact x, y and z coordinates, but since we can only move LEFT RIGHT AND FORWARD
         //I assigned the values manually.
         
-        movement.x = (targetPos - transform.position).normalized.x * horizontalSpeed; //Uses the targetPos calculated earlier then just multiplies by the movement speed.
+        movement.x = (targetPos - transform.position).normalized.x * forwardSpeed; //Uses the targetPos calculated earlier then just multiplies by the movement speed.
         movement.y = -0.1f; //Can't be set to zero...this breaks the animator and groundcheck...
         movement.z = forwardSpeed; //set to forwardspeed because player only goes forward.
         
