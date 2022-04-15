@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMove : MonoBehaviour
 {
@@ -23,8 +25,8 @@ public class PlayerMove : MonoBehaviour
     public float jumpHeight = 10f;
     private Vector3 velocity;
 
-    
-    private bool isSliding = false;
+    private bool isAlive = true; //todo: move this to playerEntity or something
+    //private bool isSliding = false;
 
     
 
@@ -40,6 +42,11 @@ public class PlayerMove : MonoBehaviour
 
     void Update()
     {
+        if (!isAlive)
+        {
+            Debug.Log("Dead");
+        }//Ends it here.
+        
         
         //animator.SetBool("isGameStarted", true);
         move.z = forwardSpeed;
@@ -59,7 +66,7 @@ public class PlayerMove : MonoBehaviour
         {
             velocity.y += gravity * Time.deltaTime;
             //Allows fast falling!
-            if (Input.GetKeyDown(KeyCode.LeftControl) && !isSliding)
+            if (Input.GetKeyDown(KeyCode.LeftControl))
             {
                 velocity.y = -15f;
             }                
@@ -104,6 +111,18 @@ public class PlayerMove : MonoBehaviour
         controller.Move(move * Time.deltaTime);
         
         AnimationController.SetIsMoving(forwardSpeed != 0);
+
+        FallCheck();
+    }
+
+   
+
+    private void FallCheck()
+    {
+        if (transform.position.y < -2)
+        {
+            Die();
+        }
     }
 
     private void Jump()
@@ -127,6 +146,12 @@ public class PlayerMove : MonoBehaviour
         
         
     }
-    
 
+    public void Die()//todo: move this to entity too lmao.
+    {
+        isAlive = false;
+        //then restart game
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+    
 }

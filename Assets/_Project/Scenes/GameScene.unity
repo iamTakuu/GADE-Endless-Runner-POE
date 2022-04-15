@@ -450,43 +450,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: be6f340ccdcc7a94a91e9a8a11aa3163, type: 3}
   m_PrefabInstance: {fileID: 1028934796}
   m_PrefabAsset: {fileID: 0}
---- !u!136 &1070651649
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1070651648}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  m_Radius: 1.6700001
-  m_Height: 4.8354936
-  m_Direction: 1
-  m_Center: {x: -0.025920229, y: 2.3753743, z: 0.15999995}
 --- !u!4 &1070651650 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: be6f340ccdcc7a94a91e9a8a11aa3163, type: 3}
   m_PrefabInstance: {fileID: 1028934796}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1070651651
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1070651648}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26e2cb3b2c6033743ad5b448138e0909, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  distanceToGround: 0
-  gravityValue: -9.81
-  jumpHeight: 0.1
-  forwardSpeed: 0
-  horizontalSpeed: 40
-  laneDistance: 10
 --- !u!114 &1070651652
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -500,6 +468,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forwardSpeed: 30
+  distanceToGround: 0
   laneDistance: 10
   isGrounded: 0
   horizontalSpeed: 40

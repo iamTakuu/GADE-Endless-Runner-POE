@@ -5,11 +5,12 @@ using UnityEngine;
 public class WorldTile : MonoBehaviour
 {
  private WorldSpawner worldSpawner;
+ public GameObject obstaclePrefab;
  
  private void Start()
  {
   worldSpawner = FindObjectOfType<WorldSpawner>();
-  
+  SpawnObstacle();
  }
 
 
@@ -24,4 +25,17 @@ public class WorldTile : MonoBehaviour
   }
   
  }
+
+ void SpawnObstacle()
+ {
+   //Randomly Selects one of the lanes using the gameObjects
+   int spawnIndex = Random.Range(2, 5);
+   Transform spawnPoint = transform.GetChild(spawnIndex).transform;
+   
+   //Now make a new instance
+   Instantiate(obstaclePrefab, spawnPoint.position, Quaternion.identity, transform);
+
+ }
+
+ 
 }
