@@ -23,4 +23,9 @@ public class PlayerEntity : MonoBehaviour
     {
         return isAlive;
     }
+
+    public void CollectCoin()
+    {
+        playerCoinCount++;
+    }
 }

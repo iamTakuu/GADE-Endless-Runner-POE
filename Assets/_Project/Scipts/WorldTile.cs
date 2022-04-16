@@ -7,6 +7,7 @@ public class WorldTile : MonoBehaviour
 {
  private WorldSpawner worldSpawner;
  public List<GameObject> obstaclePrefab;
+ public GameObject coinPrefab;
  public GameObject parentSpawn;
  public List<GameObject> spawnLocations;
  
@@ -16,6 +17,7 @@ public class WorldTile : MonoBehaviour
   worldSpawner = FindObjectOfType<WorldSpawner>();
   AddSpawnLocations(parentSpawn, spawnLocations);
   SpawnObstacle();
+  SpawnCoins();
   
  }
 
@@ -36,21 +38,18 @@ public class WorldTile : MonoBehaviour
  {
   if (spawnLocations.Count == 0) return;
 
-   //Randomly Picks Object From The List
-   //var random = new System.Random();
+   //We randomise an Index for the obstacle we want.
    int randomObjectIndex = Random.Range(0, obstaclePrefab.Count);
    
    //Randomly Selects one of the lanes using the gameObject
    int spawnIndex = Random.Range(0, spawnLocations.Count);
    
    
-   //Transform spawnPoint = parentSpawn.transform.GetChild(spawnIndex).transform;
+   //Based on the lane selected, assign the Physical spawn point of the obstacle.
    Transform spawnPoint = spawnLocations[spawnIndex].transform;
 
-   //Now make a new instance
-   
-   
-    Instantiate(obstaclePrefab[randomObjectIndex], spawnPoint.position, Quaternion.identity, transform);
+   //Now make a new instance with the random obstacle at the desired location.
+   Instantiate(obstaclePrefab[randomObjectIndex], spawnPoint.position, Quaternion.identity, transform);
 
  }
 
@@ -58,7 +57,7 @@ public class WorldTile : MonoBehaviour
  {
   if (PARENTSPAWN.transform.childCount == 0)
   {
-   //spawnLocations.Add(PARENTSPAWN);
+   //spawnLocations.Add(PARENTSPAWN); todo: this lets obstacles be spawned on single lanes, but it's off for now. FIX
    return;
   }
   
@@ -71,4 +70,38 @@ public class WorldTile : MonoBehaviour
   }
   
  }
+
+ private void SpawnCoins()
+ {
+  int coinCount = 4;
+  for (int i = 0; i < coinCount; i++)
+  {
+   GameObject tempCoin = Instantiate(coinPrefab, transform);//We grab transform to make it a child of the tile, so it gets deleted OnCollisonExit.
+   tempCoin.transform.position = RandomisePoint(transform.GetChild(0).GetComponent<Collider>());
+  }
+ }
+
+ Vector3 RandomisePoint(Collider collider)
+ {
+  //Vector3 point = new Vector3(0, 0, transform.position.z);
+  Vector3 point;
+  if (collider.bounds.extents.x == collider.bounds.extents.z) // If it's a normal sized plane, spawn them all randomly.
+  {
+   point = new Vector3(
+    Random.Range(collider.bounds.min.x, collider.bounds.max.x)+2f, //Padding to the X axis
+    Random.Range(collider.bounds.min.y, collider.bounds.max.y),
+    Random.Range(collider.bounds.min.z, collider.bounds.max.z));
+  }
+  else //If it's the single one, spawn them right in the centre
+  {
+   point = new Vector3(0, 0, transform.position.z);
+
+  }
+
+  
+  point.z += 5; //Padding
+  point.y = 2; //Keeps coins on the floor
+  return point;
+ }
+ 
 }

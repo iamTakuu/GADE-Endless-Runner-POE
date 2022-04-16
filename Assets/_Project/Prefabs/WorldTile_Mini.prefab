@@ -62,6 +62,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obstaclePrefab:
   - {fileID: 5543320248634346775, guid: 9a44058398900b34988ef0be3c46e049, type: 3}
+  coinPrefab: {fileID: 392395203264246166, guid: 6022e7fc4afb50d4a911dab8de1392ce, type: 3}
   parentSpawn: {fileID: 3322254735791072690}
   spawnLocations: []
 --- !u!1 &3322254735791072690

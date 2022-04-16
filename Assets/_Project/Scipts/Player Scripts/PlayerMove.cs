@@ -11,14 +11,14 @@ public class PlayerMove : MonoBehaviour
     private AnimationControllerScript AnimationController;
     private PlayerEntity _playerEntity;
     private Vector3 move;
-    public float forwardSpeed = 30f;
-    public float distanceToGround;
+    public float forwardSpeed = 60f;
+    private float distanceToGround;
     private int desiredLane = 1;//0:left, 1:middle, 2:right
-    public float laneDistance = 10f;//The distance between tow lanes
-    public bool isGrounded;
+    private float laneDistance = 10f;//The distance between tow lanes
+    private bool isGrounded;
     public float horizontalSpeed = 40f;
-    public float gravity = -30f;
-    public float jumpHeight = 10f;
+    public float gravity = -100f;
+    public float jumpHeight = 6f;
     private Vector3 velocity;
     //private bool isAlive = true; //todo: move this to playerEntity or something
     //private bool isSliding = false;
@@ -115,7 +115,7 @@ public class PlayerMove : MonoBehaviour
 
     private void FallCheck()
     {
-        if (transform.position.y < -2)
+        if (transform.position.y < -1f)
         {
             _playerEntity.Die();
         }
