@@ -15,6 +15,8 @@ public class AnimationControllerScript : MonoBehaviour
     private static readonly int IsJumping = Animator.StringToHash("isJumping");
     private static readonly int IsGrounded = Animator.StringToHash("isGrounded");
     private static readonly int JumpTrigger = Animator.StringToHash("jumpTrigger");
+    private static readonly int DeathTrigger = Animator.StringToHash("deathTrigger");
+    private static readonly int IsDead = Animator.StringToHash("isDead");
 
     #endregion
 
@@ -34,6 +36,10 @@ public class AnimationControllerScript : MonoBehaviour
     {
         Animator.SetTrigger(JumpTrigger);
     }
+    public void SetDeathTrigger()
+    {
+        Animator.SetTrigger(DeathTrigger);
+    }
     #endregion
 
     public void SetIsJumping(bool value)
@@ -44,5 +50,10 @@ public class AnimationControllerScript : MonoBehaviour
     public void SetIsGrounded(bool value)
     {
         Animator.SetBool(IsGrounded, value);
+    }
+
+    public void SetIsDead(bool value)
+    {
+        Animator.SetBool(IsDead, value);
     }
 }

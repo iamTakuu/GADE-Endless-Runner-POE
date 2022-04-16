@@ -9,6 +9,7 @@ public class PlayerMove : MonoBehaviour
 {
     private CharacterController playerController;
     private AnimationControllerScript AnimationController;
+    private PlayerEntity _playerEntity;
     private Vector3 move;
     public float forwardSpeed = 30f;
     public float distanceToGround;
@@ -19,7 +20,7 @@ public class PlayerMove : MonoBehaviour
     public float gravity = -30f;
     public float jumpHeight = 10f;
     private Vector3 velocity;
-    private bool isAlive = true; //todo: move this to playerEntity or something
+    //private bool isAlive = true; //todo: move this to playerEntity or something
     //private bool isSliding = false;
     
 
@@ -29,14 +30,18 @@ public class PlayerMove : MonoBehaviour
     {
         playerController = GetComponent<CharacterController>();
         AnimationController = GetComponent<AnimationControllerScript>();
+        _playerEntity = GetComponent<PlayerEntity>();
     }
 
     void Update()
     {
-        if (!isAlive)
+        if (!_playerEntity.IsAlive())
         {
-            Debug.Log("Dead");
-        }//Ends it here.
+            playerController.enabled = false;
+            //Make a cutscene to show the death.
+            return;
+        }
+        //Ends it here.
         
         //animator.SetBool("isGameStarted", true);
         move.z = forwardSpeed;
@@ -112,7 +117,7 @@ public class PlayerMove : MonoBehaviour
     {
         if (transform.position.y < -2)
         {
-            Die();
+            _playerEntity.Die();
         }
     }
 
@@ -138,11 +143,6 @@ public class PlayerMove : MonoBehaviour
         
     }
 
-    public void Die()//todo: move this to entity too lmao.
-    {
-        isAlive = false;
-        //then restart game
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
+    
     
 }

@@ -371,7 +371,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9da243b5c3c7dbe4d86f7765ead1fc1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  worldTile: {fileID: 2160561088085485191, guid: 8c71fe2a69c4c214c98657af8432ba3c, type: 3}
+  worldTiles:
+  - {fileID: 2160561088085485191, guid: 9bc432dca0c3e1243ac57bb9d64546b2, type: 3}
+  - {fileID: 2160561088085485191, guid: 8c71fe2a69c4c214c98657af8432ba3c, type: 3}
 --- !u!1001 &1028934796
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -450,6 +452,19 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: be6f340ccdcc7a94a91e9a8a11aa3163, type: 3}
   m_PrefabInstance: {fileID: 1028934796}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1070651649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1070651648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85a138f2216d4254a901f9d8633ae983, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isAlive: 1
 --- !u!4 &1070651650 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: be6f340ccdcc7a94a91e9a8a11aa3163, type: 3}
@@ -467,12 +482,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9735e4fefd55c424fa8eba2a5c9520ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forwardSpeed: 50
+  forwardSpeed: 40
   distanceToGround: 0
   laneDistance: 10
   isGrounded: 0
   horizontalSpeed: 40
-  gravity: -30
+  gravity: -40
   jumpHeight: 10
 --- !u!95 &1070651653
 Animator:

@@ -10,8 +10,8 @@ public class ObstacleScript : MonoBehaviour
    {
       Debug.Log("Ouch");
       if (!other.CompareTag("Player")) return;
-      other.GetComponent<PlayerMove>().Die();
-       
+      other.GetComponent<PlayerEntity>().Die();
       
    }
+   
 }
