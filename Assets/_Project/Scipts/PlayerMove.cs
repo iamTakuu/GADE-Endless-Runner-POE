@@ -7,37 +7,28 @@ using UnityEngine.SceneManagement;
 
 public class PlayerMove : MonoBehaviour
 {
-    private CharacterController controller;
+    private CharacterController playerController;
     private AnimationControllerScript AnimationController;
     private Vector3 move;
     public float forwardSpeed = 30f;
     public float distanceToGround;
-
     private int desiredLane = 1;//0:left, 1:middle, 2:right
     public float laneDistance = 10f;//The distance between tow lanes
-
     public bool isGrounded;
     public float horizontalSpeed = 40f;
-
-    
-
     public float gravity = -30f;
     public float jumpHeight = 10f;
     private Vector3 velocity;
-
     private bool isAlive = true; //todo: move this to playerEntity or something
     //private bool isSliding = false;
-
     
 
     //bool toggle = false;
 
     void Awake()
     {
-        
-        controller = GetComponent<CharacterController>();
+        playerController = GetComponent<CharacterController>();
         AnimationController = GetComponent<AnimationControllerScript>();
-
     }
 
     void Update()
@@ -46,7 +37,6 @@ public class PlayerMove : MonoBehaviour
         {
             Debug.Log("Dead");
         }//Ends it here.
-        
         
         //animator.SetBool("isGameStarted", true);
         move.z = forwardSpeed;
@@ -72,7 +62,8 @@ public class PlayerMove : MonoBehaviour
             }                
 
         }
-        controller.Move(velocity * Time.deltaTime);
+        
+        playerController.Move(velocity * Time.deltaTime);
 
         //Gather the inputs on which lane we should be
         if (Input.GetKeyDown(KeyCode.D))
@@ -93,7 +84,7 @@ public class PlayerMove : MonoBehaviour
         switch (desiredLane)
         {
             case 0:
-                targetPosition += Vector3.left * laneDistance;
+                targetPosition += Vector3.left  * laneDistance; 
                 break;
             case 2:
                 targetPosition += Vector3.right * laneDistance;
@@ -105,10 +96,10 @@ public class PlayerMove : MonoBehaviour
         {
             var distanceTo = targetPosition - transform.position; //Gives the raw distance between two points
             var directionVector = distanceTo.normalized * horizontalSpeed * Time.deltaTime; //Magnitude will always be 1, but direction changes.
-            controller.Move(directionVector.magnitude < distanceTo.magnitude ? directionVector : distanceTo);
+            playerController.Move(directionVector.magnitude < distanceTo.magnitude ? directionVector : distanceTo);
         }
         
-        controller.Move(move * Time.deltaTime);
+        playerController.Move(move * Time.deltaTime);
         
         AnimationController.SetIsMoving(forwardSpeed != 0);
 

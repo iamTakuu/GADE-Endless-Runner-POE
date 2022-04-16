@@ -5,24 +5,13 @@ using UnityEngine;
 
 public class ObstacleScript : MonoBehaviour
 {
-   public PlayerMove playerMove;
-
-
-   private void Start()
-   {
-      playerMove = FindObjectOfType<PlayerMove>();
-   }
-
    
-   private void OnCollisionEnter(Collision collision)
+   private void OnTriggerEnter(Collider other)
    {
       Debug.Log("Ouch");
-      if (collision.gameObject.name == "Player")
-      {
-         //Kill the player lol.
-         playerMove.Die();
-      }
+      if (!other.CompareTag("Player")) return;
+      other.GetComponent<PlayerMove>().Die();
+       
+      
    }
-
-   
 }
