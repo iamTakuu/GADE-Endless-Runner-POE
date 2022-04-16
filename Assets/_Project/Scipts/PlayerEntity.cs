@@ -6,7 +6,11 @@ using UnityEngine.SceneManagement;
 
 public class PlayerEntity : MonoBehaviour
 {
-    [SerializeField] private bool isAlive = true;
+    private int playerDistance;
+    private int playerScore;
+    private int playerCoinCount;
+    private bool isAlive = true;
+    
     
     public void Die()//todo: move this to entity too lmao.
     {
