@@ -61,8 +61,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obstaclePrefab:
-  - {fileID: 5543320248634346775, guid: 9a44058398900b34988ef0be3c46e049, type: 3}
-  coinPrefab: {fileID: 392395203264246166, guid: 6022e7fc4afb50d4a911dab8de1392ce, type: 3}
+  - {fileID: 5262071142766466823, guid: b9af9c5e1c900d444b9a1e4ed9ff85f3, type: 3}
+  coinPrefab: {fileID: 1887300639109213168, guid: 0fff19ebf56e5214199a0f6668f20031, type: 3}
   parentSpawn: {fileID: 3322254735791072690}
   spawnLocations: []
 --- !u!1 &3322254735791072690
@@ -185,7 +185,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2dbb16318e60898478e4291cf26c058f, type: 2}
+  - {fileID: 2100000, guid: fd5b52ed1fbec7544967b50919a3d3dc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

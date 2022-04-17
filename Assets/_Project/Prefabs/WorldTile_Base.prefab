@@ -91,9 +91,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obstaclePrefab:
-  - {fileID: 5543320248634346775, guid: 9a44058398900b34988ef0be3c46e049, type: 3}
-  - {fileID: 1134141330857519592, guid: cf4194588c2723a4caa11831fa76aa24, type: 3}
-  coinPrefab: {fileID: 392395203264246166, guid: 6022e7fc4afb50d4a911dab8de1392ce, type: 3}
+  - {fileID: 5262071142766466823, guid: b9af9c5e1c900d444b9a1e4ed9ff85f3, type: 3}
+  - {fileID: 5424232536340949276, guid: 4e01794b9529d084293bffe0b459ba89, type: 3}
+  coinPrefab: {fileID: 1887300639109213168, guid: 0fff19ebf56e5214199a0f6668f20031, type: 3}
   parentSpawn: {fileID: 3897819926968764168}
   spawnLocations: []
 --- !u!1 &3897819926968764168
