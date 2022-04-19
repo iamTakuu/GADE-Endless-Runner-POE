@@ -21,8 +21,7 @@ public class AnimationControllerScript : MonoBehaviour
     {
         Animator = GetComponent<Animator>();
     }
-
-    #region CUSTOM METHODS
+    
 
     public void SetIsMoving(bool value)
     {
@@ -37,7 +36,7 @@ public class AnimationControllerScript : MonoBehaviour
     {
         Animator.SetTrigger(DeathTrigger);
     }
-    #endregion
+   
 
     public void SetIsJumping(bool value)
     {

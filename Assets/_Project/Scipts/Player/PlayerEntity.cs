@@ -18,7 +18,6 @@ public class PlayerEntity : MonoBehaviour
     public void Die()
     {
         isAlive = false;
-        //then restart game
     }
 
     

@@ -2,26 +2,25 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
-    private CharacterController playerController;
+    private CharacterController PlayerController;
     private AnimationControllerScript AnimationController;
-    private Vector3 move;
+    private Vector3 move; //Used to do some vector translations
     public float forwardSpeed = 50f;
     private float distanceToGround;
     private int desiredLane = 1;//0:left, 1:middle, 2:right
-    private const float laneDistance = 10f; //The distance between tow lanes
+    private const float laneDistance = 10f; //The distance between tow lanes Todo: Switch to representing lanes with Enums
     private bool isGrounded;
     public float horizontalSpeed = 40f;
     public float gravity = -100f;
     public float jumpHeight = 6f;
-    private Vector3 velocity;
+    private Vector3 velocity; //Mainly using this for gravity stuff. https://docs.unity3d.com/ScriptReference/CharacterController.Move.html
     //private bool isSliding = false;
     
 
     void Awake()
     {
-        playerController = GetComponent<CharacterController>();
+        PlayerController = GetComponent<CharacterController>();
         AnimationController = GetComponent<AnimationControllerScript>();
-        //_playerEntity = GetComponent<PlayerEntity>();
     }
 
     void Update()
@@ -29,7 +28,7 @@ public class PlayerMove : MonoBehaviour
         
         if (!GameManager.Instance.PlayerEntity.IsAlive())
         {
-            playerController.enabled = false;
+            PlayerController.enabled = false;
             //Make a cutscene to show the death.
             return;
         }
@@ -42,7 +41,9 @@ public class PlayerMove : MonoBehaviour
         
         AnimationController.SetIsGrounded(isGrounded);
         if (isGrounded && velocity.y < 0)
+        {
             velocity.y = -1.5f;
+        }
 
         if (isGrounded)
         {
@@ -60,7 +61,7 @@ public class PlayerMove : MonoBehaviour
 
         }
         
-        playerController.Move(velocity * Time.deltaTime);
+        PlayerController.Move(velocity * Time.deltaTime);
 
         //Gather the inputs on which lane we should be
         if (Input.GetKeyDown(KeyCode.D))
@@ -78,7 +79,7 @@ public class PlayerMove : MonoBehaviour
 
         //Calculate where we should be in the future
         var targetPosition = transform.position.z * transform.forward + transform.position.y * transform.up;
-        switch (desiredLane)
+        switch (desiredLane) 
         {
             case 0:
                 targetPosition += Vector3.left  * laneDistance; 
@@ -87,16 +88,15 @@ public class PlayerMove : MonoBehaviour
                 targetPosition += Vector3.right * laneDistance;
                 break;
         }
-
-        //transform.position = targetPosition;
+        
         if (transform.position != targetPosition)
         {
             var distanceTo = targetPosition - transform.position; //Gives the raw distance between two points
             var directionVector = distanceTo.normalized * horizontalSpeed * Time.deltaTime; //Magnitude will always be 1, but direction changes.
-            playerController.Move(directionVector.magnitude < distanceTo.magnitude ? directionVector : distanceTo);
+            PlayerController.Move(directionVector.magnitude < distanceTo.magnitude ? directionVector : distanceTo);
         }
         
-        playerController.Move(move * Time.deltaTime);
+        PlayerController.Move(move * Time.deltaTime);
         
         AnimationController.SetIsMoving(forwardSpeed != 0);
 
