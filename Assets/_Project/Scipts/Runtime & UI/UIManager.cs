@@ -8,7 +8,10 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI distanceText;
     public TextMeshProUGUI coinText;
     public TextMeshProUGUI scoreText;
-
+    public TextMeshProUGUI finaldistanceText;
+    public TextMeshProUGUI finalcoinText;
+    public TextMeshProUGUI finalscoreText;
+    public GameObject GameOverScreen;
 
 
     
@@ -27,5 +30,14 @@ public class UIManager : MonoBehaviour
     {
         scoreText.text = ("Score: " + GameManager.Instance.PlayerEntity.playerScore);
     }
-    
+
+    public void ToggleGameOverScreen()
+    {
+        finalscoreText.text = "Final Score: "+GameManager.Instance.PlayerEntity.playerScore;
+        finaldistanceText.text= "Distance Travelled: "+GameManager.Instance.PlayerEntity.playerDistance +"m";
+        finalcoinText.text = "Total Coins: "+GameManager.Instance.PlayerEntity.playerCoinCount;
+
+        GameOverScreen.SetActive(true);
+    }
+
 }

@@ -19,9 +19,9 @@ public class PlayerEntity : MonoBehaviour
     {
         isAlive = false;
         //then restart game
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
+    
     public bool IsAlive()
     {
         return isAlive;

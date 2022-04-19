@@ -26,6 +26,7 @@ public class PlayerMove : MonoBehaviour
 
     void Update()
     {
+        
         if (!GameManager.Instance.PlayerEntity.IsAlive())
         {
             playerController.enabled = false;

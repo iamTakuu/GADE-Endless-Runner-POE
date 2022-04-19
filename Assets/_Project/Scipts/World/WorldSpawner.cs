@@ -20,7 +20,10 @@ public class WorldSpawner : MonoBehaviour
 
     private GameObject ReturnRandomTile()
     {
-        
+        if (GameManager.Instance.PlayerEntity.transform.position.z<10f)
+        {
+            return worldTiles[0]; //Makes sure the first tile is always solid ground.
+        }
         return worldTiles[Random.Range(0, worldTiles.Count)];
 
     }
