@@ -79,7 +79,7 @@ public class WorldTile : MonoBehaviour
   }
  }
 
- Vector3 RandomisePoint(Collider collider)
+ private Vector3 RandomisePoint(Collider collider)
  {
   //Vector3 point = new Vector3(0, 0, transform.position.z);
   Vector3 point;
@@ -95,8 +95,7 @@ public class WorldTile : MonoBehaviour
    point = new Vector3(0, 2, transform.position.z);
 
   }
-
-  
+ 
   point.z += 5; //Padding
   //point.y = 2; //Keeps coins on the floor
   return point;
