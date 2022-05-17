@@ -8,16 +8,18 @@ public class WorldSpawner : MonoBehaviour
 {
     public List<GameObject> worldTiles;
     private Vector3 tileSpawnPoint;
+    private readonly float zAxisDist = 50f;
 
     public void SpawnWorld()
     {
         //This will create an instance of WorldTile prefab at the End of the last tile
         //Quaternion.identity == no rotation.
-        GameObject tempTile = Instantiate(ReturnRandomTile(), tileSpawnPoint, Quaternion.identity);
-        //This grabs the second child of WorldTile Prefab. Then adds its position to tileSpawnPoint
-        tileSpawnPoint = tempTile.transform.GetChild(1).transform.position; 
+        
+        Instantiate(ReturnRandomTile(), tileSpawnPoint, Quaternion.identity);
+        tileSpawnPoint.z += zAxisDist;
     }
 
+   
     private GameObject ReturnRandomTile()
     {
         if (GameManager.Instance.PlayerEntity.transform.position.z < 10f)
