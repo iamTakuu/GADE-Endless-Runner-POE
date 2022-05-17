@@ -8,9 +8,9 @@ public class PlayerMove : MonoBehaviour
     public float forwardSpeed = 50f;
     private float distanceToGround;
     private int desiredLane = 1;//0:left, 1:middle, 2:right
-    private const float laneDistance = 10f; //The distance between tow lanes Todo: Switch to representing lanes with Enums
+    private const float laneDistance = 20f; //The distance between tow lanes Todo: Switch to representing lanes with Enums
     private bool isGrounded;
-    public float horizontalSpeed = 40f;
+    public float horizontalSpeed = 80f;
     public float gravity = -100f;
     public float jumpHeight = 6f;
     private Vector3 velocity; //Mainly using this for gravity stuff. https://docs.unity3d.com/ScriptReference/CharacterController.Move.html
