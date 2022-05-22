@@ -1,3 +1,6 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,35 +12,55 @@ public class PlayerEntity : MonoBehaviour
     private float origin;
     public int playerCoinCount;
     private bool isAlive = true;
+    private bool isMagnetised;
+    //public State playerState;
+   
 
-    private void Start()
-    {
-        origin = transform.position.z;
-    }
+    // public enum State
+    // {
+    //     Normal,
+    //     Magnetised,
+    // }
 
-    public void Die()
-    {
-        isAlive = false;
-    }
-
-    
+    #region CUSTOM METHODS
+    public void Magnetise() => isMagnetised = true;
+    public void DeMagnetise() => isMagnetised = false;
+    public void Die() => isAlive = false;
+    public void CollectCoin() => playerCoinCount++;
+    public void IncrementScore() => playerScore++;
+   
     public bool IsAlive()
     {
         return isAlive;
     }
-
-    public void CollectCoin()
+    public bool IsMagnetised()
     {
-        playerCoinCount++;
+        return isMagnetised;
     }
+    
 
-    public void IncrementScore()
+    #endregion
+    
+
+    
+
+
+    #region UNITY METHODS
+
+    private void Start()
     {
-        playerScore++;
+        origin = transform.position.z;
+        
     }
-
     private void Update()
     {
         playerDistance = Mathf.RoundToInt(transform.position.z - origin)/4;
     }
+
+
+    #endregion
+    
+    
+    
+    
 }

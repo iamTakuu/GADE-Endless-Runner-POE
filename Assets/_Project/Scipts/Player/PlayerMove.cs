@@ -5,25 +5,25 @@ public class PlayerMove : MonoBehaviour
     private CharacterController PlayerController;
     private AnimationControllerScript AnimationController;
     private Vector3 move; //Used to do some vector translations
-    public float forwardSpeed = 50f;
+    public float forwardSpeed = 60f;
     private float distanceToGround;
     private int desiredLane = 1;//0:left, 1:middle, 2:right
     private const float laneDistance = 20f; //The distance between tow lanes Todo: Switch to representing lanes with Enums
     private bool isGrounded;
-    public float horizontalSpeed = 80f;
+    public float horizontalSpeed = 50f;
     public float gravity = -100f;
-    public float jumpHeight = 6f;
+    public float jumpHeight = 8f;
     private Vector3 velocity; //Mainly using this for gravity stuff. https://docs.unity3d.com/ScriptReference/CharacterController.Move.html
     //private bool isSliding = false;
-    
 
-    void Awake()
+
+    private void Awake()
     {
         PlayerController = GetComponent<CharacterController>();
         AnimationController = GetComponent<AnimationControllerScript>();
     }
 
-    void Update()
+    private void Update()
     {
         
         if (!GameManager.Instance.PlayerEntity.IsAlive())
@@ -56,7 +56,7 @@ public class PlayerMove : MonoBehaviour
             //Allows fast falling!
             if (Input.GetKeyDown(KeyCode.LeftControl))
             {
-                velocity.y = -15f;
+                velocity.y = -20f;
             }                
 
         }
@@ -110,7 +110,7 @@ public class PlayerMove : MonoBehaviour
     /// </summary>
     private void FallCheck()
     {
-        if (transform.position.y < -2f)
+        if (transform.position.y < -10f)
         {
             GameManager.Instance.PlayerEntity.Die();
         }

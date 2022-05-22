@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1346480750041063911}
   m_Layer: 3
   m_Name: WorldTile_PillarGap
-  m_TagString: Untagged
+  m_TagString: PillarTile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -64,8 +64,11 @@ MonoBehaviour:
   - {fileID: 5262071142766466823, guid: b9af9c5e1c900d444b9a1e4ed9ff85f3, type: 3}
   - {fileID: 5424232536340949276, guid: 4e01794b9529d084293bffe0b459ba89, type: 3}
   coinPrefab: {fileID: 1887300639109213168, guid: 0fff19ebf56e5214199a0f6668f20031, type: 3}
-  parentSpawn: {fileID: 8479819087610572800}
-  spawnLocations: []
+  magnetPrefab: {fileID: 8779795557730875063, guid: 10a038f71b9e0dd4e9d84e298a218cf9, type: 3}
+  obstacleParentSpawn: {fileID: 8479819087610572800}
+  pickupParentSpawn: {fileID: 8479819087610572800}
+  obstacleSpawnLocations: []
+  pickupSpawnLocations: []
 --- !u!1 &8479819087610572800
 GameObject:
   m_ObjectHideFlags: 0
@@ -256,5 +259,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 100.00001, y: 100, z: 0.53}
+  m_Size: {x: 116.9, y: 100, z: 0.53}
   m_Center: {x: 0, y: 0, z: 0.01}

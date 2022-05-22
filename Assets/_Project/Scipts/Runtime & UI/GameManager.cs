@@ -1,6 +1,9 @@
+using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Experimental.GlobalIllumination;
 using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,7 +13,9 @@ public class GameManager : MonoBehaviour
    public UIManager UIManager { get; private set; }
    //public DirectionalLight DirectionalLight { get; private set; }
 
-
+   private float magnetisedRange = 50f;
+   private int magnetCoolDown = 5;
+   
    private void Awake()
    {
        if (Instance !=null && Instance!=this)
@@ -46,10 +51,25 @@ public class GameManager : MonoBehaviour
            {
                Time.timeScale = 1;
            } 
-       
+           
+           StateCheck();
+
        
    }
 
+
+   private void FixedUpdate()
+   {
+
+   }
+
+   private void StateCheck()
+   {
+       if (Instance.PlayerEntity.IsMagnetised())
+       {
+           StartCoroutine(MagnetiseCoins());
+       }
+   }
 
    public void RestartGame()
    {
@@ -64,5 +84,32 @@ public class GameManager : MonoBehaviour
        SceneManager.LoadScene(0);
    }
 
-   
+   private static void RemoveExtraPickups(string PickUpTag)
+   {
+       GameObject[] otherMagnets = GameObject.FindGameObjectsWithTag(PickUpTag);
+     
+       foreach (var magnet in otherMagnets)
+       {
+           magnet.SetActive(false);
+       }
+   }
+
+   private IEnumerator MagnetiseCoins()
+   {
+       RemoveExtraPickups("Magnet");
+       
+       GameObject[] coins = GameObject.FindGameObjectsWithTag("Coin");
+       foreach (var coin in coins)
+       {
+           if (magnetisedRange >= Vector3.Distance(Instance.PlayerEntity.transform.position, coin.transform.position))
+           {
+               coin.transform.position = Vector3.MoveTowards(coin.transform.position,
+                   Instance.PlayerEntity.transform.position, 200f * Time.deltaTime);
+           }
+       }
+       
+       
+       yield return new WaitForSeconds(magnetCoolDown);
+       Instance.PlayerEntity.DeMagnetise();
+   }
 }

@@ -5,20 +5,37 @@ using UnityEngine;
 
 public class WorldTile : MonoBehaviour
 {
+ #region VARIABLES
+ 
  public List<GameObject> obstaclePrefab;
  public GameObject coinPrefab;
- public GameObject parentSpawn;
- public List<GameObject> spawnLocations;
+ public GameObject magnetPrefab;
+ public GameObject obstacleParentSpawn;
+ public GameObject pickupParentSpawn;
+ public List<GameObject> obstacleSpawnLocations;
+ public List<GameObject> pickupSpawnLocations;
  
+ #endregion
+
+
+
+ #region UNITY METHODS
 
  private void Start()
  {
-  AddSpawnLocations(parentSpawn, spawnLocations);
-  SpawnObstacle();
-  SpawnCoins();
+  int magnetProbability = Random.Range(0, 3);
   
- }
+  
+  AddObstacleSpawnLocations(obstacleParentSpawn);
+  AddCoinSpawnLocations(pickupParentSpawn);
+  SpawnObstacle();
+  if (magnetProbability == 1)
+  {
+   SpawnMagnets();
 
+  }
+  SpawnLaneCoins();
+ }
 
  private void OnTriggerExit(Collider other)
  {
@@ -32,73 +49,97 @@ public class WorldTile : MonoBehaviour
   
  }
 
- void SpawnObstacle()
- {
-  if (spawnLocations.Count == 0) return;
+ #endregion
 
+ #region CUSTOMMETHODS
+
+ private void SpawnObstacle()
+ {
+  if (obstacleSpawnLocations.Count == 0) return;
+  
    //We randomise an Index for the obstacle we want.
    int randomObjectIndex = Random.Range(0, obstaclePrefab.Count);
    
    //Randomly Selects one of the lanes using the gameObject
-   int spawnIndex = Random.Range(0, spawnLocations.Count);
+   int spawnIndex = Random.Range(0, obstacleSpawnLocations.Count);
    
    
    //Based on the lane selected, assign the Physical spawn point of the obstacle.
-   Transform spawnPoint = spawnLocations[spawnIndex].transform;
+   Transform spawnPoint = obstacleSpawnLocations[spawnIndex].transform;
 
    //Now make a new instance with the random obstacle at the desired location.
    Instantiate(obstaclePrefab[randomObjectIndex], spawnPoint.position, Quaternion.identity, transform);
+ }
+
+ private void SpawnLaneCoins()
+ {
+  const int coinsToSpawn = 5;
+  float zPadding = 0;
+
+  if (pickupSpawnLocations == null) return;
+  int spawnIndex = Random.Range(0, pickupSpawnLocations.Count);
+  Transform spawnPoint = pickupSpawnLocations[spawnIndex].transform;
+  
+  
+  for (int i = 0; i < coinsToSpawn-1; i++)
+  {
+   GameObject tempCoin = Instantiate(coinPrefab, transform);//We grab transform to make it a child of the tile, so it gets deleted OnCollisonExit.
+   tempCoin.transform.position = spawnPoint.position + Vector3.forward * zPadding;
+   zPadding += 10f;
+  }
 
  }
 
- private void AddSpawnLocations (GameObject PARENTSPAWN, List<GameObject> List)
+ private void SpawnMagnets()
  {
-  if (PARENTSPAWN.transform.childCount == 0)
+
+  if (GameManager.Instance.PlayerEntity.IsMagnetised()) return;
+  
+  if (pickupSpawnLocations == null) return;
+  
+  float zPos = Random.Range(0, 6) * 10;
+  int spawnIndex = Random.Range(0, pickupSpawnLocations.Count);
+  
+  Transform spawnPoint = pickupSpawnLocations[spawnIndex].transform;
+  GameObject tempMag = Instantiate(magnetPrefab, transform);
+  tempMag.transform.position = spawnPoint.position + Vector3.forward * zPos;
+
+ }
+
+ private void AddObstacleSpawnLocations (GameObject obstacleParentSpawn)
+ {
+  if (obstacleParentSpawn.transform.childCount == 0)
   {
    //spawnLocations.Add(PARENTSPAWN); todo: this lets obstacles be spawned on single lanes, but it's off for now. FIX
    return;
   }
   
-   
-  
-  for (int i = 0; i < PARENTSPAWN.transform.childCount; i++)
+  for (int i = 0; i < obstacleParentSpawn.transform.childCount; i++)
   {
-   var child = PARENTSPAWN.transform.GetChild(i).gameObject;
-   spawnLocations.Add(child);
+   var child = obstacleParentSpawn.transform.GetChild(i).gameObject;
+   obstacleSpawnLocations.Add(child);
   }
   
  }
-
- private void SpawnCoins()
+ private void AddCoinSpawnLocations (GameObject coinParentSpawn)
  {
-  int coinCount = 3;//Max amount of coins to spawn per Tile.
-  for (int i = 0; i < coinCount; i++)
+  if (coinParentSpawn.transform.childCount == 0)
   {
-   GameObject tempCoin = Instantiate(coinPrefab, transform);//We grab transform to make it a child of the tile, so it gets deleted OnCollisonExit.
-   tempCoin.transform.position = RandomisePoint(transform.GetChild(0).GetComponent<Collider>());
+   pickupSpawnLocations = null;
+   return;
   }
+  
+  for (int i = 0; i < coinParentSpawn.transform.childCount; i++)
+  {
+   var child = coinParentSpawn.transform.GetChild(i).gameObject;
+   pickupSpawnLocations.Add(child);
+  }
+  
  }
-
- private Vector3 RandomisePoint(Collider collider)
- {
-  //Vector3 point = new Vector3(0, 0, transform.position.z);
-  Vector3 point;
-  if (collider.bounds.extents.x == collider.bounds.extents.z) // If it's a normal sized plane, spawn them all randomly.
-  {
-   point = new Vector3(
-    Random.Range(collider.bounds.min.x, collider.bounds.max.x)+2f, //Random position in X & Padding to the X axis
-    2, //Always stays floating a bit
-    Random.Range(collider.bounds.min.z, collider.bounds.max.z)); //Random position in Z
-  }
-  else //If it's the single one, spawn them right in the centre
-  {
-   point = new Vector3(0, 2, transform.position.z);
-
-  }
  
-  point.z += 5; //Padding
-  //point.y = 2; //Keeps coins on the floor
-  return point;
- }
+
+ #endregion
+
+ 
  
 }
