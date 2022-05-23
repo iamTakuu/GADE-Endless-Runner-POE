@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class AnimationControllerScript : MonoBehaviour
@@ -17,11 +18,26 @@ public class AnimationControllerScript : MonoBehaviour
 
     #endregion
 
+    #region UNITY METHODS
+
     private void Awake()
     {
         Animator = GetComponent<Animator>();
     }
-    
+
+    private void OnEnable()
+    {
+        EventsManager.Instance.PlayerDeath += SetDeathTrigger;
+    }
+
+    private void OnDisable()
+    {
+        EventsManager.Instance.PlayerDeath -= SetDeathTrigger;
+    }
+
+    #endregion
+
+    #region ANIMATION METHODS
 
     public void SetIsMoving(bool value)
     {
@@ -37,7 +53,6 @@ public class AnimationControllerScript : MonoBehaviour
         Animator.SetTrigger(DeathTrigger);
     }
    
-
     public void SetIsJumping(bool value)
     {
         Animator.SetBool(IsJumping, value);
@@ -52,4 +67,8 @@ public class AnimationControllerScript : MonoBehaviour
     {
         Animator.SetBool(IsDead, value);
     }
+
+    #endregion
+
+   
 }

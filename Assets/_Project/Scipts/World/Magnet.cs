@@ -7,7 +7,7 @@ using UnityEngine;
 public class Magnet : MonoBehaviour
 {
    
-   //Need to figure out how to make this pickupable
+   
    #region VARIABLES
 
    

@@ -1,3 +1,5 @@
+using System;
+using DG.Tweening;
 using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
@@ -23,18 +25,24 @@ public class PlayerMove : MonoBehaviour
         AnimationController = GetComponent<AnimationControllerScript>();
     }
 
+    private void OnEnable()
+    {
+        EventsManager.Instance.PlayerDeath += StopPlayerMovement;
+    }
+
+    private void OnDisable()
+    {
+        EventsManager.Instance.PlayerDeath -= StopPlayerMovement;
+    }
+
+    private void StopPlayerMovement()
+    {
+       this.enabled = false;
+    }
+    
+
     private void Update()
     {
-        
-        if (!GameManager.Instance.PlayerEntity.IsAlive())
-        {
-            PlayerController.enabled = false;
-            //Make a cutscene to show the death.
-            return;
-        }
-        //Ends it here.
-        
-        //animator.SetBool("isGameStarted", true);
         move.z = forwardSpeed;
 
         isGrounded = GroundCheck();
@@ -112,7 +120,8 @@ public class PlayerMove : MonoBehaviour
     {
         if (transform.position.y < -10f)
         {
-            GameManager.Instance.PlayerEntity.Die();
+            EventsManager.Instance.OnPlayerDeath();
+            
         }
     }
     

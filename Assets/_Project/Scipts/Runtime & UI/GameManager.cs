@@ -5,6 +5,7 @@ using UnityEngine.Experimental.GlobalIllumination;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
+[DefaultExecutionOrder(-100)]
 public class GameManager : MonoBehaviour
 {
    public static GameManager Instance { get; private set; }
@@ -15,7 +16,29 @@ public class GameManager : MonoBehaviour
 
    private float magnetisedRange = 50f;
    private int magnetCoolDown = 5;
+   public GameObject pickupContainer;
+
+
+   private void OnEnable()
+   {
+       EventsManager.Instance.PlayerDeath += GameOver;
+       
+   }
+
+   private void OnDisable()
+   {
+       EventsManager.Instance.PlayerDeath -= GameOver;
+   }
+
    
+   
+   
+   private void GameOver()
+   {
+       StartCoroutine(ShowGameOverUI(1.5f));
+   }
+
+
    private void Awake()
    {
        if (Instance !=null && Instance!=this)
@@ -29,9 +52,7 @@ public class GameManager : MonoBehaviour
        PlayerEntity = GetComponentInChildren<PlayerEntity>();
        WorldSpawner = GetComponentInChildren<WorldSpawner>();
        UIManager = GetComponentInChildren<UIManager>();
-       //DirectionalLight = GetComponent<DirectionalLight>();
        DontDestroyOnLoad(this);
-       
    }
 
    
@@ -42,25 +63,27 @@ public class GameManager : MonoBehaviour
            Instance.UIManager.UpdateDistanceUI();
            Instance.UIManager.UpdateCoinUI();
            Instance.UIManager.UpdateScoreUI();
-           if (!Instance.PlayerEntity.IsAlive())
-           {
-               Time.timeScale = 0;
-               Instance.UIManager.ToggleGameOverScreen();
-           }
-           else
-           {
-               Time.timeScale = 1;
-           } 
+           // if (!Instance.PlayerEntity.IsAlive())
+           // {
+           //     Time.timeScale = 0;
+           //     Instance.UIManager.ToggleGameOverScreen();
+           // }
+           // else
+           // {
+           //     Time.timeScale = 1;
+           // } 
            
            StateCheck();
-
-       
    }
 
-
-   private void FixedUpdate()
+   private IEnumerator ShowGameOverUI(float waitDuration)
    {
-
+       
+       yield return new WaitForSeconds(waitDuration);
+       Time.timeScale = 0;
+       Instance.UIManager.ToggleGameOverScreen();
+       
+       
    }
 
    private void StateCheck()
@@ -73,6 +96,7 @@ public class GameManager : MonoBehaviour
 
    public void RestartGame()
    {
+       Time.timeScale = 1;
        Destroy(gameObject);
        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
    }
@@ -96,6 +120,8 @@ public class GameManager : MonoBehaviour
 
    private IEnumerator MagnetiseCoins()
    {
+       pickupContainer.SetActive(true);
+       
        RemoveExtraPickups("Magnet");
        
        GameObject[] coins = GameObject.FindGameObjectsWithTag("Coin");
@@ -111,5 +137,6 @@ public class GameManager : MonoBehaviour
        
        yield return new WaitForSeconds(magnetCoolDown);
        Instance.PlayerEntity.DeMagnetise();
+       pickupContainer.SetActive(false);
    }
 }

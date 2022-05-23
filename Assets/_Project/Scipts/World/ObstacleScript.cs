@@ -8,7 +8,7 @@ public class ObstacleScript : MonoBehaviour
    {
       //Debug.Log("Ouch");
       if (!other.CompareTag("Player")) return;
-      GameManager.Instance.PlayerEntity.Die();
+      EventsManager.Instance.OnPlayerDeath();
       
    }
 
