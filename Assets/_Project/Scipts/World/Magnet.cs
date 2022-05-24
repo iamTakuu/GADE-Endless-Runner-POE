@@ -6,8 +6,6 @@ using UnityEngine;
 
 public class Magnet : MonoBehaviour
 {
-   
-   
    #region VARIABLES
 
    
@@ -15,7 +13,6 @@ public class Magnet : MonoBehaviour
    #endregion
    
    #region UNITY METHODS
-
    
    private void OnTriggerEnter(Collider other)
    {
@@ -25,21 +22,12 @@ public class Magnet : MonoBehaviour
          return;
       }
 
-      if (other.CompareTag("Player"))
-      {
-         GameManager.Instance.PlayerEntity.Magnetise();
-         Destroy(gameObject);
-         
-      }
-      
+      if (!other.CompareTag("Player")) return;
+      GameManager.Instance.PlayerEntity.Magnetise();
+      Destroy(gameObject);
+
    }
 
    #endregion
-
-   #region CUSTOMMETHODS
-
    
-
-   #endregion
- 
 }

@@ -22,16 +22,29 @@ public class GameManager : MonoBehaviour
    private void OnEnable()
    {
        EventsManager.Instance.PlayerDeath += GameOver;
-       
+       EventsManager.Instance.PickUpEvent += SpinPickUp;
    }
+
+   
 
    private void OnDisable()
    {
        EventsManager.Instance.PlayerDeath -= GameOver;
+       EventsManager.Instance.PickUpEvent -= SpinPickUp;
    }
 
    
-   
+   private void SpinPickUp(EventsManager.PickUpType pickUpType, bool isActive)
+   {
+       if (isActive)
+       {
+           pickupContainer.SetActive(true);
+       }
+       else
+       {
+           pickupContainer.SetActive(false);
+       }
+   }
    
    private void GameOver()
    {
@@ -63,15 +76,7 @@ public class GameManager : MonoBehaviour
            Instance.UIManager.UpdateDistanceUI();
            Instance.UIManager.UpdateCoinUI();
            Instance.UIManager.UpdateScoreUI();
-           // if (!Instance.PlayerEntity.IsAlive())
-           // {
-           //     Time.timeScale = 0;
-           //     Instance.UIManager.ToggleGameOverScreen();
-           // }
-           // else
-           // {
-           //     Time.timeScale = 1;
-           // } 
+           
            
            StateCheck();
    }
@@ -120,8 +125,7 @@ public class GameManager : MonoBehaviour
 
    private IEnumerator MagnetiseCoins()
    {
-       pickupContainer.SetActive(true);
-       
+       EventsManager.Instance.OnPickUp(pickUpType: EventsManager.PickUpType.Magnet, true);
        RemoveExtraPickups("Magnet");
        
        GameObject[] coins = GameObject.FindGameObjectsWithTag("Coin");
@@ -134,9 +138,8 @@ public class GameManager : MonoBehaviour
            }
        }
        
-       
        yield return new WaitForSeconds(magnetCoolDown);
        Instance.PlayerEntity.DeMagnetise();
-       pickupContainer.SetActive(false);
+       EventsManager.Instance.OnPickUp(pickUpType: EventsManager.PickUpType.Magnet, false);
    }
 }

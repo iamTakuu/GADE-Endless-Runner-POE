@@ -4,6 +4,8 @@ using TMPro;
 
 public class UIManager : MonoBehaviour
 {
+    #region VARIABLES
+    
     [Header("Text Mesh Elements")]
     public TextMeshProUGUI distanceText;
     public TextMeshProUGUI coinText;
@@ -12,9 +14,10 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI finalcoinText;
     public TextMeshProUGUI finalscoreText;
     public GameObject GameOverScreen;
+   
+    #endregion
 
-
-    
+    #region UI METHODS
 
     public void UpdateDistanceUI()
     {
@@ -40,4 +43,6 @@ public class UIManager : MonoBehaviour
         GameOverScreen.SetActive(true);
     }
 
+    #endregion
+    
 }

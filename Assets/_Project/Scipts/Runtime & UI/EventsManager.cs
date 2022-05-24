@@ -9,7 +9,14 @@ public class EventsManager : MonoBehaviour
     #region GLOBAL INSTANCE
 
     public static EventsManager Instance;
-
+    
+    
+    
+    public enum PickUpType
+    {
+        Magnet,
+        Shield
+    }
     #endregion
 
     #region UNITY METHODS
@@ -32,6 +39,10 @@ public class EventsManager : MonoBehaviour
 
     public event Action PlayerDeath;
     public void OnPlayerDeath() => PlayerDeath?.Invoke();
+
+    public event Action<PickUpType, bool> PickUpEvent;
+    public void OnPickUp(PickUpType pickUpType, bool isActive) => PickUpEvent?.Invoke(pickUpType,isActive);
+
 
     #endregion
 }
