@@ -8,31 +8,73 @@ using Random = UnityEngine.Random;
 [DefaultExecutionOrder(-100)]
 public class GameManager : MonoBehaviour
 {
-   public static GameManager Instance { get; private set; }
-   public PlayerEntity PlayerEntity { get; private set; }
-   public WorldSpawner WorldSpawner { get; private set; }
-   public UIManager UIManager { get; private set; }
-   //public DirectionalLight DirectionalLight { get; private set; }
+    #region GAMEMANAGER SINGLETON
 
-   private float magnetisedRange = 50f;
-   private int magnetCoolDown = 5;
-   public GameObject pickupContainer;
+    public static GameManager Instance { get; private set; }
 
 
-   private void OnEnable()
-   {
-       EventsManager.Instance.PlayerDeath += GameOver;
-       EventsManager.Instance.PickUpEvent += SpinPickUp;
-   }
+    #endregion
 
+    #region SINGLETON VARIABLES
+
+    public PlayerEntity PlayerEntity { get; private set; }
+    public WorldSpawner WorldSpawner { get; private set; }
+    public UIManager UIManager { get; private set; }
+    //public DirectionalLight DirectionalLight { get; private set; }
+
+    #endregion
+
+    #region VARIABLES
+
+    private float magnetisedRange = 50f;
+    private int magnetCoolDown = 5;
+    public GameObject pickupContainer;
+
+    #endregion
+    
+    #region UNITY METHODS
+
+    private void OnEnable()
+    {
+        EventsManager.Instance.PlayerDeath += GameOver;
+        EventsManager.Instance.PickUpEvent += SpinPickUp;
+    }
+    
+    private void OnDisable()
+    {
+        EventsManager.Instance.PlayerDeath -= GameOver;
+        EventsManager.Instance.PickUpEvent -= SpinPickUp;
+    }
+    private void Awake()
+    {
+        if (Instance !=null && Instance!=this)
+        {
+            Destroy(this);
+            return;
+        }
+
+        Instance = this;
+
+        PlayerEntity = GetComponentInChildren<PlayerEntity>();
+        WorldSpawner = GetComponentInChildren<WorldSpawner>();
+        UIManager = GetComponentInChildren<UIManager>();
+        DontDestroyOnLoad(this);
+    }
    
+    private void Update()
+    {
+       
+        Instance.UIManager.UpdateDistanceUI();
+        Instance.UIManager.UpdateCoinUI();
+        Instance.UIManager.UpdateScoreUI();
+           
+           
+        StateCheck();
+    }
 
-   private void OnDisable()
-   {
-       EventsManager.Instance.PlayerDeath -= GameOver;
-       EventsManager.Instance.PickUpEvent -= SpinPickUp;
-   }
-
+    #endregion
+    
+    #region CUSTOM METHODS
    
    private void SpinPickUp(EventsManager.PickUpType pickUpType, bool isActive)
    {
@@ -50,37 +92,7 @@ public class GameManager : MonoBehaviour
    {
        StartCoroutine(ShowGameOverUI(1.5f));
    }
-
-
-   private void Awake()
-   {
-       if (Instance !=null && Instance!=this)
-       {
-           Destroy(this);
-           return;
-       }
-
-       Instance = this;
-
-       PlayerEntity = GetComponentInChildren<PlayerEntity>();
-       WorldSpawner = GetComponentInChildren<WorldSpawner>();
-       UIManager = GetComponentInChildren<UIManager>();
-       DontDestroyOnLoad(this);
-   }
-
    
-
-   private void Update()
-   {
-       
-           Instance.UIManager.UpdateDistanceUI();
-           Instance.UIManager.UpdateCoinUI();
-           Instance.UIManager.UpdateScoreUI();
-           
-           
-           StateCheck();
-   }
-
    private IEnumerator ShowGameOverUI(float waitDuration)
    {
        
@@ -142,4 +154,6 @@ public class GameManager : MonoBehaviour
        Instance.PlayerEntity.DeMagnetise();
        EventsManager.Instance.OnPickUp(pickUpType: EventsManager.PickUpType.Magnet, false);
    }
+   
+   #endregion
 }

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
+    #region VARIABLES
+    
     private CharacterController PlayerController;
     private AnimationControllerScript AnimationController;
     private Vector3 move; //Used to do some vector translations
@@ -17,7 +19,10 @@ public class PlayerMove : MonoBehaviour
     public float jumpHeight = 8f;
     private Vector3 velocity; //Mainly using this for gravity stuff. https://docs.unity3d.com/ScriptReference/CharacterController.Move.html
     //private bool isSliding = false;
+    
+    #endregion
 
+    #region UNITY METHODS
 
     private void Awake()
     {
@@ -35,12 +40,7 @@ public class PlayerMove : MonoBehaviour
         EventsManager.Instance.PlayerDeath -= StopPlayerMovement;
     }
 
-    private void StopPlayerMovement()
-    {
-       this.enabled = false;
-    }
-    
-
+    //There's a lot in this...sadge.
     private void Update()
     {
         move.z = forwardSpeed;
@@ -111,7 +111,15 @@ public class PlayerMove : MonoBehaviour
         FallCheck();
     }
 
-   
+    #endregion
+
+    #region CUSTOM METHODS
+
+    private void StopPlayerMovement()
+    {
+        this.enabled = false;
+    }
+
     /// <summary>
     /// Checks to see if the player has gone below
     /// a certain point in the Y-Axis.
@@ -124,19 +132,6 @@ public class PlayerMove : MonoBehaviour
             
         }
     }
-    
-    /// <summary>
-    /// Used to jump. Calculates distance to go in Y-axis
-    /// by using the jumpHeight var and the Gravity value.
-    /// </summary>
-    private void Jump()
-    { 
-        //StopCoroutine(Slide());
-       AnimationController.SetJumpTrigger();
-   
-        velocity.y = Mathf.Sqrt(jumpHeight * 2 * -gravity);
-    }
-    
     /// <summary>
     /// This gets the total height of the collider, splits it in half
     /// then cast a beeaaaam downwards from the center to it's feet
@@ -148,9 +143,30 @@ public class PlayerMove : MonoBehaviour
         //I had to make this cause the built in groundcheck sucks lmao.
         distanceToGround = GetComponent<CharacterController>().bounds.size.y / 2;
         return (Physics.Raycast(transform.position, Vector3.down, distanceToGround-2f));
-        
-        
     }
+    
+    /// <summary>
+    /// Used to jump. Calculates distance to go in Y-axis
+    /// by using the jumpHeight var and the Gravity value.
+    /// </summary>
+    private void Jump()
+    { 
+        //StopCoroutine(Slide());
+        AnimationController.SetJumpTrigger();
+   
+        velocity.y = Mathf.Sqrt(jumpHeight * 2 * -gravity);
+    }
+    
+    #endregion
+    
+
+
+   
+    
+    
+    
+    
+    
 
     
     

@@ -1,17 +1,7 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
 
 public class Magnet : MonoBehaviour
 {
-   #region VARIABLES
-
-   
-   
-   #endregion
-   
    #region UNITY METHODS
    
    private void OnTriggerEnter(Collider other)
@@ -29,5 +19,4 @@ public class Magnet : MonoBehaviour
    }
 
    #endregion
-   
 }

@@ -3,11 +3,10 @@ using UnityEngine;
 
 public class AnimationControllerScript : MonoBehaviour
 {
-    #region CUSTOMVARIABLES
+    #region ANIMATION VARIABLES
 
     [Header("Required Components")] 
     public Animator Animator;
-
     
     private static readonly int IsMoving = Animator.StringToHash("isMoving");
     private static readonly int IsJumping = Animator.StringToHash("isJumping");
@@ -69,6 +68,5 @@ public class AnimationControllerScript : MonoBehaviour
     }
 
     #endregion
-
    
 }

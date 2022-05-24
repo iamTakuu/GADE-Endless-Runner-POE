@@ -4,27 +4,17 @@ using UnityEngine;
 
 public class PlayerEntity : MonoBehaviour
 {
+    #region VARIABLES
+    
     public int playerDistance;
     public int playerScore;
     private float origin;
     public int playerCoinCount;
-    //private bool isAlive = true;
     private bool isMagnetised;
-    //public State playerState;
     public CinemachineVirtualCamera DeathCam;
-
-
-    private void OnEnable()
-    {
-        EventsManager.Instance.PlayerDeath += EnableDeathCam;
-    }
-
-    private void OnDisable()
-    {
-        EventsManager.Instance.PlayerDeath -= EnableDeathCam;
-
-    }
-
+    
+    #endregion
+    
     #region CUSTOM METHODS
     public void Magnetise() => isMagnetised = true;
     public void DeMagnetise() => isMagnetised = false;
@@ -48,25 +38,28 @@ public class PlayerEntity : MonoBehaviour
     
     #endregion
     
-
-    
-
-
     #region UNITY METHODS
 
+    private void OnEnable()
+    {
+        EventsManager.Instance.PlayerDeath += EnableDeathCam;
+    }
+
+    private void OnDisable()
+    {
+        EventsManager.Instance.PlayerDeath -= EnableDeathCam;
+    }
+    
     private void Start()
     {
         origin = transform.position.z;
-      
     }
+    
     private void Update()
     {
         playerDistance = Mathf.RoundToInt(transform.position.z - origin)/4;
     }
 
     #endregion
-    
-    
-    
     
 }

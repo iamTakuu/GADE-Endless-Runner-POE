@@ -3,8 +3,13 @@ using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
+    #region VARIABLES
+    
     public float rotationSpeed = 50f;
+    
+    #endregion
 
+    #region UNITY METHODS
     
     private void OnTriggerEnter(Collider other)
     {
@@ -29,6 +34,7 @@ public class Coin : MonoBehaviour
         transform.Rotate(0, 0, rotationSpeed * Time.deltaTime);
         
     }
-
+    
+    #endregion
     
 }

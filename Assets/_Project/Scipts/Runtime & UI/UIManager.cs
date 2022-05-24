@@ -17,7 +17,7 @@ public class UIManager : MonoBehaviour
    
     #endregion
 
-    #region UI METHODS
+    #region UIMETHODS
 
     public void UpdateDistanceUI()
     {

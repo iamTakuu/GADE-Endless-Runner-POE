@@ -1,5 +1,3 @@
-
-
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,9 +14,7 @@ public class WorldTile : MonoBehaviour
  public List<GameObject> pickupSpawnLocations;
  
  #endregion
-
-
-
+ 
  #region UNITY METHODS
 
  private void Start()
@@ -140,6 +136,4 @@ public class WorldTile : MonoBehaviour
 
  #endregion
 
- 
- 
 }

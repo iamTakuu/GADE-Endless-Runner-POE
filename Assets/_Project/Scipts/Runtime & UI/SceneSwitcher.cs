@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class SceneSwitcher : MonoBehaviour
 {
+    #region CUSTOM METHODS
+
     public void StartGame()
     {
         SceneManager.LoadScene(1);
@@ -14,4 +16,7 @@ public class SceneSwitcher : MonoBehaviour
     {
         Application.Quit();
     }
+
+    #endregion
+    
 }

@@ -10,8 +10,6 @@ public class EventsManager : MonoBehaviour
 
     public static EventsManager Instance;
     
-    
-    
     public enum PickUpType
     {
         Magnet,
