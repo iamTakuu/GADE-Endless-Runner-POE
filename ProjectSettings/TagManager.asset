@@ -11,6 +11,7 @@ TagManager:
   - PillarTile
   - Coin
   - Magnet
+  - Shield
   layers:
   - Default
   - TransparentFX

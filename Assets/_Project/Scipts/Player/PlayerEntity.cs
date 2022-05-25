@@ -11,6 +11,7 @@ public class PlayerEntity : MonoBehaviour
     private float origin;
     public int playerCoinCount;
     private bool isMagnetised;
+    private bool isShielded;
     public CinemachineVirtualCamera DeathCam;
     
     #endregion
@@ -18,6 +19,10 @@ public class PlayerEntity : MonoBehaviour
     #region CUSTOM METHODS
     public void Magnetise() => isMagnetised = true;
     public void DeMagnetise() => isMagnetised = false;
+
+    public void Shield() => isShielded = true;
+
+    public void UnShield() => isShielded = false;
     //public void Die() => isAlive = false;
     public void CollectCoin() => playerCoinCount++;
     public void IncrementScore() => playerScore++;
@@ -29,6 +34,11 @@ public class PlayerEntity : MonoBehaviour
     public bool IsMagnetised()
     {
         return isMagnetised;
+    }
+
+    public bool IsShielded()
+    {
+        return isShielded;
     }
 
     private void EnableDeathCam()

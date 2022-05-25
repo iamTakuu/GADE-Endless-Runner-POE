@@ -8,8 +8,18 @@ public class ObstacleScript : MonoBehaviour
 
    private void OnTriggerEnter(Collider other)
    {
-      if (!other.CompareTag("Player")) return;
-      EventsManager.Instance.OnPlayerDeath();
+
+      if (other.CompareTag("Player") && GameManager.Instance.PlayerEntity.IsShielded())
+      {
+         GameManager.Instance.PlayerEntity.UnShield();
+         return;
+      }
+
+      if (other.CompareTag("Player"))
+      {
+         EventsManager.Instance.OnPlayerDeath();
+
+      }
    }
 
    private void OnBecameInvisible()

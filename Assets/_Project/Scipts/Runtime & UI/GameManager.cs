@@ -28,7 +28,8 @@ public class GameManager : MonoBehaviour
 
     private float magnetisedRange = 50f;
     private int magnetCoolDown = 5;
-    public GameObject pickupContainer;
+    private int shieldCoolDown = 6;
+    public SpinPickup pickupContainer;
 
     #endregion
     
@@ -37,13 +38,13 @@ public class GameManager : MonoBehaviour
     private void OnEnable()
     {
         EventsManager.Instance.PlayerDeath += GameOver;
-        EventsManager.Instance.PickUpEvent += SpinPickUp;
+        EventsManager.Instance.PickUpEvent += ManageSpinPickUp;
     }
     
     private void OnDisable()
     {
         EventsManager.Instance.PlayerDeath -= GameOver;
-        EventsManager.Instance.PickUpEvent -= SpinPickUp;
+        EventsManager.Instance.PickUpEvent -= ManageSpinPickUp;
     }
     private void Awake()
     {
@@ -76,16 +77,9 @@ public class GameManager : MonoBehaviour
     
     #region CUSTOM METHODS
    
-   private void SpinPickUp(EventsManager.PickUpType pickUpType, bool isActive)
+   private void ManageSpinPickUp(EventsManager.PickUpType pickUpType, bool isActive)
    {
-       if (isActive)
-       {
-           pickupContainer.SetActive(true);
-       }
-       else
-       {
-           pickupContainer.SetActive(false);
-       }
+       pickupContainer.ManageContainer(pickUpType, isActive);
    }
    
    private void GameOver()
@@ -109,6 +103,16 @@ public class GameManager : MonoBehaviour
        {
            StartCoroutine(MagnetiseCoins());
        }
+
+       if (Instance.PlayerEntity.IsShielded())
+       {
+           StartCoroutine(ActivateShield());
+       }
+       else
+       {
+           EventsManager.Instance.OnPickUp(pickUpType: EventsManager.PickUpType.Shield, false);
+           StopCoroutine(ActivateShield());
+       }
    }
 
    public void RestartGame()
@@ -127,11 +131,11 @@ public class GameManager : MonoBehaviour
 
    private static void RemoveExtraPickups(string PickUpTag)
    {
-       GameObject[] otherMagnets = GameObject.FindGameObjectsWithTag(PickUpTag);
+       GameObject[] otherPickups = GameObject.FindGameObjectsWithTag(PickUpTag);
      
-       foreach (var magnet in otherMagnets)
+       foreach (var pickup in otherPickups)
        {
-           magnet.SetActive(false);
+           pickup.SetActive(false);
        }
    }
 
@@ -153,6 +157,16 @@ public class GameManager : MonoBehaviour
        yield return new WaitForSeconds(magnetCoolDown);
        Instance.PlayerEntity.DeMagnetise();
        EventsManager.Instance.OnPickUp(pickUpType: EventsManager.PickUpType.Magnet, false);
+   }
+   
+   private IEnumerator ActivateShield()
+   {
+       EventsManager.Instance.OnPickUp(pickUpType: EventsManager.PickUpType.Shield, true);
+       RemoveExtraPickups("Shield");
+       
+       yield return new WaitForSeconds(shieldCoolDown);
+       Instance.PlayerEntity.UnShield();
+       EventsManager.Instance.OnPickUp(pickUpType: EventsManager.PickUpType.Shield, false);
    }
    
    #endregion

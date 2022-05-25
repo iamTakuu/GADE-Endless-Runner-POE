@@ -8,6 +8,7 @@ public class WorldTile : MonoBehaviour
  public List<GameObject> obstaclePrefab;
  public GameObject coinPrefab;
  public GameObject magnetPrefab;
+ public GameObject shieldPrefab;
  public GameObject obstacleParentSpawn;
  public GameObject pickupParentSpawn;
  public List<GameObject> obstacleSpawnLocations;
@@ -20,7 +21,7 @@ public class WorldTile : MonoBehaviour
  private void Start()
  {
   int magnetProbability = Random.Range(0, 3);
-  
+  int shieldProbability = Random.Range(0, 4);
   
   AddObstacleSpawnLocations(obstacleParentSpawn);
   AddCoinSpawnLocations(pickupParentSpawn);
@@ -28,7 +29,11 @@ public class WorldTile : MonoBehaviour
   if (magnetProbability == 1)
   {
    SpawnMagnets();
+  }
 
+  if (shieldProbability == 1)
+  {
+   SpawnShields();
   }
   SpawnLaneCoins();
  }
@@ -99,6 +104,21 @@ public class WorldTile : MonoBehaviour
   Transform spawnPoint = pickupSpawnLocations[spawnIndex].transform;
   GameObject tempMag = Instantiate(magnetPrefab, transform);
   tempMag.transform.position = spawnPoint.position + Vector3.forward * zPos;
+
+ }
+
+ private void SpawnShields()
+ {
+  if (GameManager.Instance.PlayerEntity.IsShielded()) return;
+  
+  if (pickupSpawnLocations == null) return;
+  
+  float zPos = Random.Range(0, 6) * 10;
+  int spawnIndex = Random.Range(0, pickupSpawnLocations.Count);
+  
+  Transform spawnPoint = pickupSpawnLocations[spawnIndex].transform;
+  GameObject tempShield = Instantiate(shieldPrefab, transform);
+  tempShield.transform.position = spawnPoint.position + Vector3.forward * zPos;
 
  }
 

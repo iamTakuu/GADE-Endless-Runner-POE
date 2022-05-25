@@ -14,7 +14,7 @@ public class Coin : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
        
-        if (other.CompareTag("Obstacle") || other.CompareTag("Magnet")) //If the coin collides with an obstacle
+        if (other.CompareTag("Obstacle") || other.CompareTag("Magnet") || other.CompareTag("Shield")) //If the coin collides with an obstacle
         { 
            if (GameManager.Instance.PlayerEntity.IsMagnetised()) return; 
            Destroy(gameObject);

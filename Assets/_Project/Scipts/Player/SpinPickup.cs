@@ -19,6 +19,8 @@ public class SpinPickup : MonoBehaviour
     private void OnEnable()
     {
         EventsManager.Instance.PickUpEvent += SpinPickUps;
+        MagnetContainer.SetActive(false);
+        ShieldContainer.SetActive(false);
     }
     
     private void OnDisable()
@@ -32,17 +34,32 @@ public class SpinPickup : MonoBehaviour
     #endregion
 
     #region EVENT METHOD
+
+    public void ManageContainer(EventsManager.PickUpType pickUpType, bool isEnabled)
+    {
+        switch (pickUpType)
+        {
+            case EventsManager.PickUpType.Magnet:
+                MagnetContainer.SetActive(isEnabled);
+
+                break;
+            case EventsManager.PickUpType.Shield:
+                ShieldContainer.SetActive(isEnabled);
+
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(pickUpType), pickUpType, null);
+        }
+    }
     
     private void SpinPickUps(EventsManager.PickUpType pickUpType, bool isSpinning)
     {
         switch (pickUpType)
         {
             case EventsManager.PickUpType.Magnet:
-                MagnetContainer.SetActive(true);
                 MagnetContainer.transform.RotateAround(transform.position, Vector3.up, SPINSPEED * Time.deltaTime);
                 break;
             case EventsManager.PickUpType.Shield:
-                ShieldContainer.SetActive(true);
                 ShieldContainer.transform.RotateAround(transform.position, Vector3.up, SPINSPEED * Time.deltaTime);
                 break;
             default:
