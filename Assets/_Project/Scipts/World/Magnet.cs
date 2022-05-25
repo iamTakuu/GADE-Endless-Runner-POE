@@ -11,11 +11,15 @@ public class Magnet : MonoBehaviour
          Destroy(gameObject);
          return;
       }
-
       if (!other.CompareTag("Player")) return;
       GameManager.Instance.PlayerEntity.Magnetise();
       Destroy(gameObject);
 
+   }
+   private void OnTriggerStay(Collider other)
+   {
+      if (!other.CompareTag("Obstacle") && !other.CompareTag("Magnet")) return;
+      Destroy(gameObject);
    }
 
    #endregion

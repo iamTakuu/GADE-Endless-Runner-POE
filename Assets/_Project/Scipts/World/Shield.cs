@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,6 +19,12 @@ public class Shield : MonoBehaviour
         GameManager.Instance.PlayerEntity.Shield();
         Destroy(gameObject);
 
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (!other.CompareTag("Obstacle") && !other.CompareTag("Magnet")) return;
+        Destroy(gameObject);
     }
 
     #endregion

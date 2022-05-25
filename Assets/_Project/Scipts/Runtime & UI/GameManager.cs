@@ -26,9 +26,9 @@ public class GameManager : MonoBehaviour
 
     #region VARIABLES
 
-    private float magnetisedRange = 50f;
-    private int magnetCoolDown = 5;
-    private int shieldCoolDown = 6;
+    private const float magnetisedRange = 50f;
+    private const int magnetDuration = 10;
+    private const int shieldDuration = 5;
     public SpinPickup pickupContainer;
 
     #endregion
@@ -154,7 +154,7 @@ public class GameManager : MonoBehaviour
            }
        }
        
-       yield return new WaitForSeconds(magnetCoolDown);
+       yield return new WaitForSeconds(magnetDuration);
        Instance.PlayerEntity.DeMagnetise();
        EventsManager.Instance.OnPickUp(pickUpType: EventsManager.PickUpType.Magnet, false);
    }
@@ -164,7 +164,7 @@ public class GameManager : MonoBehaviour
        EventsManager.Instance.OnPickUp(pickUpType: EventsManager.PickUpType.Shield, true);
        RemoveExtraPickups("Shield");
        
-       yield return new WaitForSeconds(shieldCoolDown);
+       yield return new WaitForSeconds(shieldDuration);
        Instance.PlayerEntity.UnShield();
        EventsManager.Instance.OnPickUp(pickUpType: EventsManager.PickUpType.Shield, false);
    }

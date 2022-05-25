@@ -20,8 +20,8 @@ public class WorldTile : MonoBehaviour
 
  private void Start()
  {
-  int magnetProbability = Random.Range(0, 3);
-  int shieldProbability = Random.Range(0, 4);
+  int magnetProbability = Random.Range(0, 5);
+  int shieldProbability = Random.Range(0, 3);
   
   AddObstacleSpawnLocations(obstacleParentSpawn);
   AddCoinSpawnLocations(pickupParentSpawn);
@@ -98,7 +98,7 @@ public class WorldTile : MonoBehaviour
   
   if (pickupSpawnLocations == null) return;
   
-  float zPos = Random.Range(0, 6) * 10;
+  float zPos = Random.Range(0, 6) * 8;
   int spawnIndex = Random.Range(0, pickupSpawnLocations.Count);
   
   Transform spawnPoint = pickupSpawnLocations[spawnIndex].transform;
@@ -113,7 +113,7 @@ public class WorldTile : MonoBehaviour
   
   if (pickupSpawnLocations == null) return;
   
-  float zPos = Random.Range(0, 6) * 10;
+  float zPos = Random.Range(0, 6) * 8;
   int spawnIndex = Random.Range(0, pickupSpawnLocations.Count);
   
   Transform spawnPoint = pickupSpawnLocations[spawnIndex].transform;
