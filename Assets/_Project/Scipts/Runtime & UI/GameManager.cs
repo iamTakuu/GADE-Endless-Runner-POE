@@ -71,6 +71,11 @@ public class GameManager : MonoBehaviour
            
            
         StateCheck();
+        //if the escape key is pressed, the game will paused using the pause menu method
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            PauseGame();
+        }
     }
 
     #endregion
@@ -127,6 +132,24 @@ public class GameManager : MonoBehaviour
        Destroy(gameObject);
        Time.timeScale = 1;
        SceneManager.LoadScene(0);
+   }
+
+   public void PauseGame()
+   {
+       
+       if (Time.timeScale == 0)
+       {
+           return;
+       }
+
+       Time.timeScale = 0;
+       UIManager.TogglePauseScreen(true);
+   }
+  
+   public void ResumeGame()
+   {
+       Time.timeScale = 1;
+       UIManager.TogglePauseScreen(false);
    }
 
    private static void RemoveExtraPickups(string PickUpTag)

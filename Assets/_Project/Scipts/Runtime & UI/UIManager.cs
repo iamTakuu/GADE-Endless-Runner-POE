@@ -14,6 +14,7 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI finalcoinText;
     public TextMeshProUGUI finalscoreText;
     public GameObject GameOverScreen;
+    public GameObject PauseMenuScreen;
    
     #endregion
 
@@ -44,5 +45,10 @@ public class UIManager : MonoBehaviour
     }
 
     #endregion
+
+    public void TogglePauseScreen(bool toggle)
+    {
+        PauseMenuScreen.SetActive(toggle);
+    }
     
 }

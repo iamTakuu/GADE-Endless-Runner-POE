@@ -18,9 +18,11 @@ public class Magnet : MonoBehaviour
    }
    private void OnTriggerStay(Collider other)
    {
-      if (!other.CompareTag("Obstacle") && !other.CompareTag("Magnet")) return;
-      Destroy(gameObject);
+      if (other.CompareTag("Obstacle") || other.CompareTag("Shield"))
+      {
+         Destroy(gameObject);
+      }
    }
-
+   
    #endregion
 }
