@@ -65,7 +65,7 @@ MonoBehaviour:
   - {fileID: 5424232536340949276, guid: 4e01794b9529d084293bffe0b459ba89, type: 3}
   coinPrefab: {fileID: 1887300639109213168, guid: 0fff19ebf56e5214199a0f6668f20031, type: 3}
   magnetPrefab: {fileID: 8779795557730875063, guid: 10a038f71b9e0dd4e9d84e298a218cf9, type: 3}
-  shieldPrefab: {fileID: 891047107908252082, guid: c51a7c22818f9b0418f3609481f13044, type: 3}
+  shieldPrefab: {fileID: 8221472966132811508, guid: 4dc9dfcb4fb99a840b7f14eea3536e23, type: 3}
   obstacleParentSpawn: {fileID: 8479819087610572800}
   pickupParentSpawn: {fileID: 8479819087610572800}
   obstacleSpawnLocations: []
@@ -262,3 +262,15 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 116.9, y: 100, z: 0.53}
   m_Center: {x: 0, y: 0, z: 0.01}
+--- !u!114 &1626346322239799563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6175593795541991851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1118794d1c37b814e9d9c6165d75617a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

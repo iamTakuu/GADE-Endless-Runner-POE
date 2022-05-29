@@ -119,6 +119,9 @@ public class WorldTile : MonoBehaviour
   Transform spawnPoint = pickupSpawnLocations[spawnIndex].transform;
   GameObject tempShield = Instantiate(shieldPrefab, transform);
   tempShield.transform.position = spawnPoint.position + Vector3.forward * zPos;
+  tempShield.transform.position = spawnPoint.position + Vector3.up * 1f;
+
+  
 
  }
 

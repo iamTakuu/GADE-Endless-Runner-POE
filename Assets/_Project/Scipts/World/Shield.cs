@@ -9,7 +9,7 @@ public class Shield : MonoBehaviour
    
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Obstacle") || other.CompareTag("Magnet")) //If the coin collides with an obstacle
+        if (other.CompareTag("Obstacle")) 
         {
             Destroy(gameObject);
             return;
@@ -21,11 +21,7 @@ public class Shield : MonoBehaviour
 
     }
 
-    private void OnTriggerStay(Collider other)
-    {
-        if (!other.CompareTag("Obstacle") && !other.CompareTag("Magnet")) return;
-        Destroy(gameObject);
-    }
+   
 
     #endregion
 }

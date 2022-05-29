@@ -9,6 +9,11 @@ public class ObstacleScript : MonoBehaviour
    private void OnTriggerEnter(Collider other)
    {
 
+      if (other.CompareTag("Magnet") || other.CompareTag("Shield"))
+      {
+         //then destroy that object
+         Destroy(other.gameObject);
+      }
       if (other.CompareTag("Player") && GameManager.Instance.PlayerEntity.IsShielded())
       {
          GameManager.Instance.PlayerEntity.UnShield();
@@ -18,7 +23,15 @@ public class ObstacleScript : MonoBehaviour
       if (other.CompareTag("Player"))
       {
          EventsManager.Instance.OnPlayerDeath();
+      }
+   }
 
+   private void OnTriggerStay(Collider other)
+   {
+      if (other.CompareTag("Magnet") || other.CompareTag("Shield"))
+      {
+         //then destroy that object
+         Destroy(other.gameObject);
       }
    }
 

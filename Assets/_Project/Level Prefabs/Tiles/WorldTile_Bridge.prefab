@@ -65,7 +65,7 @@ MonoBehaviour:
   - {fileID: 5262071142766466823, guid: b9af9c5e1c900d444b9a1e4ed9ff85f3, type: 3}
   coinPrefab: {fileID: 1887300639109213168, guid: 0fff19ebf56e5214199a0f6668f20031, type: 3}
   magnetPrefab: {fileID: 8779795557730875063, guid: 10a038f71b9e0dd4e9d84e298a218cf9, type: 3}
-  shieldPrefab: {fileID: 891047107908252082, guid: c51a7c22818f9b0418f3609481f13044, type: 3}
+  shieldPrefab: {fileID: 8221472966132811508, guid: 4dc9dfcb4fb99a840b7f14eea3536e23, type: 3}
   obstacleParentSpawn: {fileID: 3109288919513330766}
   pickupParentSpawn: {fileID: 7208543168579601680}
   obstacleSpawnLocations: []

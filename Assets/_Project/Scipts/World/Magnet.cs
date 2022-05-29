@@ -6,7 +6,7 @@ public class Magnet : MonoBehaviour
    
    private void OnTriggerEnter(Collider other)
    {
-      if (other.CompareTag("Obstacle")) //If the coin collides with an obstacle
+      if (other.CompareTag("Obstacle")) 
       {
          Destroy(gameObject);
          return;
@@ -16,13 +16,7 @@ public class Magnet : MonoBehaviour
       Destroy(gameObject);
 
    }
-   private void OnTriggerStay(Collider other)
-   {
-      if (other.CompareTag("Obstacle") || other.CompareTag("Shield"))
-      {
-         Destroy(gameObject);
-      }
-   }
+   
    
    #endregion
 }
