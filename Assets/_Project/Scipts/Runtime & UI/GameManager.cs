@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
     public PlayerEntity PlayerEntity { get; private set; }
     public WorldSpawner WorldSpawner { get; private set; }
     public UIManager UIManager { get; private set; }
+    
+    public BossSpawner BossSpawner { get; private set; }
     //public DirectionalLight DirectionalLight { get; private set; }
 
     #endregion
@@ -30,6 +32,7 @@ public class GameManager : MonoBehaviour
     private const int magnetDuration = 10;
     private const int shieldDuration = 5;
     public SpinPickup pickupContainer;
+    public bool bossPresent;
 
     #endregion
     
@@ -39,12 +42,15 @@ public class GameManager : MonoBehaviour
     {
         EventsManager.Instance.PlayerDeath += GameOver;
         EventsManager.Instance.PickUpEvent += ManageSpinPickUp;
+       // EventsManager.Instance.BossEvent += ManageBoss;
     }
     
     private void OnDisable()
     {
         EventsManager.Instance.PlayerDeath -= GameOver;
         EventsManager.Instance.PickUpEvent -= ManageSpinPickUp;
+        //EventsManager.Instance.BossEvent -= ManageBoss;
+
     }
     private void Awake()
     {
@@ -59,6 +65,7 @@ public class GameManager : MonoBehaviour
         PlayerEntity = GetComponentInChildren<PlayerEntity>();
         WorldSpawner = GetComponentInChildren<WorldSpawner>();
         UIManager = GetComponentInChildren<UIManager>();
+        BossSpawner = GetComponentInChildren<BossSpawner>();
         DontDestroyOnLoad(this);
     }
    
@@ -78,9 +85,41 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        StartCoroutine(BossArrival());
+    }
+
     #endregion
     
     #region CUSTOM METHODS
+   //A coroutine that waits until the player's distance is greater than 200 then outputs a string "Boss has arrived"
+   private IEnumerator BossArrival()
+   {
+       while (Instance.PlayerEntity.playerDistance < 200)
+       {
+           yield return null;
+       }
+       
+       bossPresent = true;
+       EventsManager.Instance.OnBossEvent();
+
+       StartCoroutine(EndBossEvent());
+       //StartCoroutine(EndBossEvent());
+
+
+   }
+
+   private IEnumerator EndBossEvent()
+   {
+       while (Instance.PlayerEntity.playerDistance < 800)
+       {
+           yield return null;
+       }
+      
+       bossPresent = false;
+       EventsManager.Instance.OnEndBossEvent();
+   }
    
    private void ManageSpinPickUp(EventsManager.PickUpType pickUpType, bool isActive)
    {

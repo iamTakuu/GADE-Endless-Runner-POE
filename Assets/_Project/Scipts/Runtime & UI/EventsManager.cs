@@ -41,6 +41,12 @@ public class EventsManager : MonoBehaviour
     public event Action<PickUpType, bool> PickUpEvent;
     public void OnPickUp(PickUpType pickUpType, bool isActive) => PickUpEvent?.Invoke(pickUpType,isActive);
 
+    public event Action BossEvent;
+    public void OnBossEvent() => BossEvent?.Invoke();
+    
+    public event Action EndBossEvent;
+    public void OnEndBossEvent() => EndBossEvent?.Invoke();
+
 
     #endregion
 }

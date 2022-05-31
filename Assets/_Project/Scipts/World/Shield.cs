@@ -21,7 +21,5 @@ public class Shield : MonoBehaviour
 
     }
 
-   
-
     #endregion
 }

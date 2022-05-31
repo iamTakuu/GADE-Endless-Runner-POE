@@ -19,13 +19,14 @@ public class WorldSpawner : MonoBehaviour
         //This will create an instance of WorldTile prefab at the End of the last tile
         //Quaternion.identity == no rotation.
         
-        Instantiate(ReturnRandomTile(), tileSpawnPoint, Quaternion.identity);
-        tileSpawnPoint.z += zAxisDist;
-    }
+            Instantiate(ReturnRandomTile(), tileSpawnPoint, Quaternion.identity);
+            tileSpawnPoint.z += zAxisDist;
+        
+}
     
     private GameObject ReturnRandomTile()
     {
-        if (GameManager.Instance.PlayerEntity.transform.position.z < 10f)
+        if (GameManager.Instance.PlayerEntity.transform.position.z < 10f || GameManager.Instance.bossPresent)
         {
             return worldTiles[0]; //Makes sure the first tile is always solid ground.
         }

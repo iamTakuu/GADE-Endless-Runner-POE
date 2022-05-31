@@ -26,7 +26,7 @@ public class ObstacleScript : MonoBehaviour
       }
    }
 
-   private void OnTriggerStay(Collider other)
+   private void OnTriggerExit(Collider other)
    {
       if (other.CompareTag("Magnet") || other.CompareTag("Shield"))
       {

@@ -25,7 +25,11 @@ public class WorldTile : MonoBehaviour
   
   AddObstacleSpawnLocations(obstacleParentSpawn);
   AddCoinSpawnLocations(pickupParentSpawn);
-  SpawnObstacle();
+  if (!GameManager.Instance.bossPresent)
+  {
+   SpawnObstacle();
+  }
+
   if (magnetProbability == 1)
   {
    SpawnMagnets();
