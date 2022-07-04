@@ -8,13 +8,6 @@ public class BossSpawner : MonoBehaviour
     public GameObject boss;
     private Vector3 spawnPoint;
 
-    private void Awake()
-    {
-        //Set the spawnpoint to be 50 units ahead of the player's current position
-        //spawnPoint = new Vector3(GameManager.Instance.PlayerEntity.transform.position.x, GameManager.Instance.PlayerEntity.transform.position.y,
-            //GameManager.Instance.PlayerEntity.transform.position.z );
-    }
-
     private void OnEnable()
     {
         EventsManager.Instance.BossEvent += SpawnBoss;

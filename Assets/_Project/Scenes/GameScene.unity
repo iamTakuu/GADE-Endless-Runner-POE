@@ -2055,7 +2055,7 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
+  m_Color: {r: 0.740566, g: 0.9242212, b: 1, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
@@ -2522,6 +2522,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6042333887531450263, guid: e6b4c0fe6a856884fa36d712c56cfd78, type: 3}
     - target: {fileID: 4663375610563869099, guid: 4e579f0eb3468a84eb47617bea664ef3, type: 3}
+      propertyPath: CurrentLevel
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4663375610563869099, guid: 4e579f0eb3468a84eb47617bea664ef3, type: 3}
       propertyPath: pickupContainer
       value: 
       objectReference: {fileID: 2001223602}
@@ -2582,6 +2586,38 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4663375612194094853, guid: 4e579f0eb3468a84eb47617bea664ef3, type: 3}
+      propertyPath: lv1_Tiles.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4663375612194094853, guid: 4e579f0eb3468a84eb47617bea664ef3, type: 3}
+      propertyPath: lv2_Tiles.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4663375612194094853, guid: 4e579f0eb3468a84eb47617bea664ef3, type: 3}
+      propertyPath: worldTiles.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4663375612194094853, guid: 4e579f0eb3468a84eb47617bea664ef3, type: 3}
+      propertyPath: lv1_Tiles.Array.data[0]
+      value: 
+      objectReference: {fileID: 8277781737733167096, guid: 9967cdfd6bd6c5c4685c8256e34d9993, type: 3}
+    - target: {fileID: 4663375612194094853, guid: 4e579f0eb3468a84eb47617bea664ef3, type: 3}
+      propertyPath: lv1_Tiles.Array.data[1]
+      value: 
+      objectReference: {fileID: 1785314431154272123, guid: 5f4a0c4fed153ef4eae3839a9bd12f69, type: 3}
+    - target: {fileID: 4663375612194094853, guid: 4e579f0eb3468a84eb47617bea664ef3, type: 3}
+      propertyPath: lv1_Tiles.Array.data[2]
+      value: 
+      objectReference: {fileID: 6792082200653107599, guid: 3c8d6f511b372144194c106c6c62605f, type: 3}
+    - target: {fileID: 4663375612194094853, guid: 4e579f0eb3468a84eb47617bea664ef3, type: 3}
+      propertyPath: lv2_Tiles.Array.data[0]
+      value: 
+      objectReference: {fileID: 501601192859713961, guid: 69cd7b34d0829654eb06c7c2b6e10c79, type: 3}
+    - target: {fileID: 4663375612194094853, guid: 4e579f0eb3468a84eb47617bea664ef3, type: 3}
+      propertyPath: lv2_Tiles.Array.data[1]
+      value: 
+      objectReference: {fileID: 501601192859713961, guid: c597977810e6da849be5e229a01967e7, type: 3}
+    - target: {fileID: 4663375612194094853, guid: 4e579f0eb3468a84eb47617bea664ef3, type: 3}
       propertyPath: worldTiles.Array.data[0]
       value: 
       objectReference: {fileID: 8277781737733167096, guid: 9967cdfd6bd6c5c4685c8256e34d9993, type: 3}
@@ -2593,6 +2629,10 @@ PrefabInstance:
       propertyPath: worldTiles.Array.data[2]
       value: 
       objectReference: {fileID: 6792082200653107599, guid: 3c8d6f511b372144194c106c6c62605f, type: 3}
+    - target: {fileID: 4663375612194094853, guid: 4e579f0eb3468a84eb47617bea664ef3, type: 3}
+      propertyPath: worldTiles.Array.data[3]
+      value: 
+      objectReference: {fileID: 7197908243942540365, guid: 0dfecde4488d6144589fe9d9c94a8fb7, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4e579f0eb3468a84eb47617bea664ef3, type: 3}
 --- !u!1001 &6880350010350297149

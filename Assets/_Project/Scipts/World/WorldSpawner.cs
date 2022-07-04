@@ -5,8 +5,12 @@ using Random = UnityEngine.Random;
 public class WorldSpawner : MonoBehaviour
 {
     #region VARIABLES
-
-    public List<GameObject> worldTiles;
+    [Header("Level 1 Tiles")]
+    [SerializeField] private List<GameObject> lv1_Tiles;
+    
+    [Header("Level 2 Tiles")]
+    [SerializeField] private List<GameObject> lv2_Tiles;
+    
     private Vector3 tileSpawnPoint;
     private readonly float zAxisDist = 50f;
 
@@ -26,11 +30,23 @@ public class WorldSpawner : MonoBehaviour
     
     private GameObject ReturnRandomTile()
     {
+        if (GameManager.Instance.CurrentLevel == GameManager.GameLevel.LEVELONE)
+        {
+            if (GameManager.Instance.PlayerEntity.transform.position.z < 10f || GameManager.Instance.bossPresent)
+            {
+                return lv1_Tiles[0]; //Makes sure the first tile is always solid ground.
+            }
+            return lv1_Tiles[Random.Range(0, lv1_Tiles.Count)];
+        }
+
         if (GameManager.Instance.PlayerEntity.transform.position.z < 10f || GameManager.Instance.bossPresent)
         {
-            return worldTiles[0]; //Makes sure the first tile is always solid ground.
+            return lv2_Tiles[0]; //Makes sure the first tile is always solid ground.
         }
-        return worldTiles[Random.Range(0, worldTiles.Count)];
+        return lv2_Tiles[Random.Range(0, lv2_Tiles.Count)];
+
+
+
 
     }
 

@@ -28,12 +28,23 @@ public class GameManager : MonoBehaviour
 
     #region VARIABLES
 
+    public enum GameLevel
+    {
+        LEVELONE,
+        LEVELTWO
+    }
+    public enum GameState
+    {
+        
+    }
     private const float magnetisedRange = 50f;
     private const int magnetDuration = 10;
     private const int shieldDuration = 5;
     public SpinPickup pickupContainer;
     public bool bossPresent;
-
+    public GameLevel CurrentLevel;
+    
+    
     #endregion
     
     #region UNITY METHODS
@@ -42,14 +53,14 @@ public class GameManager : MonoBehaviour
     {
         EventsManager.Instance.PlayerDeath += GameOver;
         EventsManager.Instance.PickUpEvent += ManageSpinPickUp;
-       // EventsManager.Instance.BossEvent += ManageBoss;
+        EventsManager.Instance.EndBossEvent += SwitchLevels;
     }
     
     private void OnDisable()
     {
         EventsManager.Instance.PlayerDeath -= GameOver;
         EventsManager.Instance.PickUpEvent -= ManageSpinPickUp;
-        //EventsManager.Instance.BossEvent -= ManageBoss;
+        EventsManager.Instance.EndBossEvent -= SwitchLevels;
 
     }
     private void Awake()
@@ -87,6 +98,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        CurrentLevel = GameLevel.LEVELONE;
         StartCoroutine(BossArrival());
     }
 
@@ -106,10 +118,24 @@ public class GameManager : MonoBehaviour
 
        StartCoroutine(EndBossEvent());
        //StartCoroutine(EndBossEvent());
-
-
    }
 
+   private void SwitchLevels()
+   {
+       int level = Random.Range(1, 3);
+       if (level == 1)
+       {
+           CurrentLevel = GameLevel.LEVELONE;
+           Debug.Log(CurrentLevel);
+       }
+       else
+       {
+           CurrentLevel = GameLevel.LEVELTWO;
+           Debug.Log(CurrentLevel);
+       }
+           
+       
+   }
    private IEnumerator EndBossEvent()
    {
        while (Instance.PlayerEntity.playerDistance < 800)
@@ -131,7 +157,7 @@ public class GameManager : MonoBehaviour
        StartCoroutine(ShowGameOverUI(1.5f));
    }
    
-   private IEnumerator ShowGameOverUI(float waitDuration)
+   private static IEnumerator ShowGameOverUI(float waitDuration)
    {
        
        yield return new WaitForSeconds(waitDuration);
