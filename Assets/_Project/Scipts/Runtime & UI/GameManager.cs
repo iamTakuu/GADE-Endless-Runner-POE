@@ -108,11 +108,8 @@ public class GameManager : MonoBehaviour
    //A coroutine that waits until the player's distance is greater than 200 then outputs a string "Boss has arrived"
    private IEnumerator BossArrival()
    {
-       while (Instance.PlayerEntity.playerDistance < 200)
-       {
-           yield return null;
-       }
-       
+       yield return new WaitForSeconds(15);
+
        bossPresent = true;
        EventsManager.Instance.OnBossEvent();
 
@@ -126,25 +123,24 @@ public class GameManager : MonoBehaviour
        if (level == 1)
        {
            CurrentLevel = GameLevel.LEVELONE;
-           Debug.Log(CurrentLevel);
+           EventsManager.Instance.OnBMGSwitch("Level1");
        }
        else
        {
            CurrentLevel = GameLevel.LEVELTWO;
-           Debug.Log(CurrentLevel);
+           EventsManager.Instance.OnBMGSwitch("Level2");
        }
-           
-       
+
+
    }
    private IEnumerator EndBossEvent()
    {
-       while (Instance.PlayerEntity.playerDistance < 800)
-       {
-           yield return null;
-       }
+       yield return new WaitForSeconds(30);
       
        bossPresent = false;
        EventsManager.Instance.OnEndBossEvent();
+       StartCoroutine(BossArrival());
+
    }
    
    private void ManageSpinPickUp(EventsManager.PickUpType pickUpType, bool isActive)
@@ -187,6 +183,7 @@ public class GameManager : MonoBehaviour
 
    public void RestartGame()
    {
+       
        Time.timeScale = 1;
        Destroy(gameObject);
        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -197,6 +194,7 @@ public class GameManager : MonoBehaviour
        Destroy(gameObject);
        Time.timeScale = 1;
        SceneManager.LoadScene(0);
+       EventsManager.Instance.OnBMGSwitch("Menu");
    }
 
    public void PauseGame()

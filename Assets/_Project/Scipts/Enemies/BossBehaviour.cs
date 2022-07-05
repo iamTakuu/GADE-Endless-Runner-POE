@@ -5,10 +5,12 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
+using Cinemachine;
 
 public class BossBehaviour : MonoBehaviour
 {
     private bool isCaughtUp = false;
+    private CinemachineImpulseSource cameraImpulse;
 
     private Vector3 _playerPos;
     //private float catchUpSpeed = 100f;
@@ -24,6 +26,7 @@ public class BossBehaviour : MonoBehaviour
     {
         transform.position = new Vector3(0f,  15f, GameObject.Find("Player").transform.position.z - 30f);
         StartCoroutine(BossPattern(justSpawned: true));
+        cameraImpulse = gameObject.GetComponent<CinemachineImpulseSource>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -117,6 +120,8 @@ public class BossBehaviour : MonoBehaviour
         //Move slightly up then slam down
         
         transform.DOMoveY(7f, 0.2f);
+        cameraImpulse.GenerateImpulse(3f);
+        
     }
     
     private void MoveForward()

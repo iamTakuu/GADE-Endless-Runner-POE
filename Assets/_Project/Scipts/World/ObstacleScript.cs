@@ -38,7 +38,8 @@ public class ObstacleScript : MonoBehaviour
    private void OnBecameInvisible()
    {
       //If the object can't be seen by the camera, we can increment the score
-      GameManager.Instance.PlayerEntity.IncrementScore(); 
+      // GameManager.Instance.PlayerEntity.IncrementScore(); 
+      EventsManager.Instance.OnPassObstacle();
    }
 
    #endregion

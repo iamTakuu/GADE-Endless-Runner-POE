@@ -46,6 +46,8 @@ public class PlayerEntity : MonoBehaviour
        DeathCam.enabled = true;
     }
     
+    
+    
     #endregion
     
     #region UNITY METHODS
@@ -53,11 +55,13 @@ public class PlayerEntity : MonoBehaviour
     private void OnEnable()
     {
         EventsManager.Instance.PlayerDeath += EnableDeathCam;
+        EventsManager.Instance.PassObstacle += IncrementScore;
     }
 
     private void OnDisable()
     {
         EventsManager.Instance.PlayerDeath -= EnableDeathCam;
+        EventsManager.Instance.PassObstacle -= IncrementScore;
     }
     
     private void Start()

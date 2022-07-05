@@ -30,6 +30,11 @@ public class WorldTile : MonoBehaviour
    SpawnObstacle();
   }
 
+  if (GameManager.Instance.CurrentLevel == GameManager.GameLevel.LEVELTWO && GameManager.Instance.bossPresent)
+  {
+   SpawnObstacle();
+  }
+
   if (magnetProbability == 1)
   {
    SpawnMagnets();
