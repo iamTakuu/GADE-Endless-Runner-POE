@@ -11,6 +11,7 @@ public class BossBehaviour : MonoBehaviour
 {
     private bool isCaughtUp = false;
     private CinemachineImpulseSource cameraImpulse;
+    [SerializeField] private AudioClip BossSlam;
 
     private Vector3 _playerPos;
     //private float catchUpSpeed = 100f;
@@ -121,6 +122,7 @@ public class BossBehaviour : MonoBehaviour
         
         transform.DOMoveY(7f, 0.2f);
         cameraImpulse.GenerateImpulse(3f);
+        AudioManager.Instance.PlaySFX(BossSlam);
         
     }
     

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-[DefaultExecutionOrder(-110)]
+[DefaultExecutionOrder(-90)]
 public class EventsManager : MonoBehaviour
 {
     #region GLOBAL INSTANCE
@@ -64,5 +64,6 @@ public class EventsManager : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+        
     }
 }

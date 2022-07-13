@@ -4,7 +4,7 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance { get; private set; }
 
-    
+    [SerializeField] private AudioSource sfxSource;
     [SerializeField] private Music[] musics;
     private string currentMusicID;
     private void Awake()
@@ -70,5 +70,14 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    public void AdjustMasterVolume(float value)
+    {
+        AudioListener.volume = value; 
+    }
+
+    public void PlaySFX(AudioClip clip)
+    {
+        sfxSource.PlayOneShot(clip);
+    }
     
 }

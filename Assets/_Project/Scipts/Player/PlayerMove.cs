@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 
@@ -19,6 +21,7 @@ public class PlayerMove : MonoBehaviour
     public float jumpHeight = 8f;
     private Vector3 velocity; //Mainly using this for gravity stuff. https://docs.unity3d.com/ScriptReference/CharacterController.Move.html
     //private bool isSliding = false;
+    [SerializeField] private AudioClip[] playerAudioClips;
     
     #endregion
 
@@ -74,12 +77,16 @@ public class PlayerMove : MonoBehaviour
         //Gather the inputs on which lane we should be
         if (Input.GetKeyDown(KeyCode.D))
         {
+            AudioManager.Instance.PlaySFX(playerAudioClips[1]);
+
             desiredLane++;
             if (desiredLane == 3)
                 desiredLane = 2;
         }
         if (Input.GetKeyDown(KeyCode.A))
         {
+            AudioManager.Instance.PlaySFX(playerAudioClips[1]);
+
             desiredLane--;
             if (desiredLane == -1)
                 desiredLane = 0;
@@ -105,6 +112,7 @@ public class PlayerMove : MonoBehaviour
         }
         
         PlayerController.Move(move * Time.deltaTime);
+
         
         AnimationController.SetIsMoving(forwardSpeed != 0);
 
@@ -153,7 +161,8 @@ public class PlayerMove : MonoBehaviour
     { 
         //StopCoroutine(Slide());
         AnimationController.SetJumpTrigger();
-   
+        AudioManager.Instance.PlaySFX(playerAudioClips[0]);
+
         velocity.y = Mathf.Sqrt(jumpHeight * 2 * -gravity);
     }
     

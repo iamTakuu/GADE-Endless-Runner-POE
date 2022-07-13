@@ -6,6 +6,7 @@ public class Coin : MonoBehaviour
     #region VARIABLES
     
     public float rotationSpeed = 50f;
+    [SerializeField] private AudioClip coinSFX;
     
     #endregion
 
@@ -28,6 +29,7 @@ public class Coin : MonoBehaviour
        
         if (!other.CompareTag("Player")) return;
         GameManager.Instance.PlayerEntity.CollectCoin();
+        AudioManager.Instance.PlaySFX(coinSFX);
         
         
         Destroy(gameObject);

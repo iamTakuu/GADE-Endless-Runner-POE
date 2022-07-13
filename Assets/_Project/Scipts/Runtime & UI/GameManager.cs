@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     #region GAMEMANAGER SINGLETON
 
     public static GameManager Instance { get; private set; }
+    //public Leaderboard leaderboard;
 
 
     #endregion
@@ -33,6 +34,8 @@ public class GameManager : MonoBehaviour
         LEVELONE,
         LEVELTWO
     }
+
+    public bool isFirstLV;
     public enum GameState
     {
         
@@ -78,6 +81,7 @@ public class GameManager : MonoBehaviour
         UIManager = GetComponentInChildren<UIManager>();
         BossSpawner = GetComponentInChildren<BossSpawner>();
         DontDestroyOnLoad(this);
+        isFirstLV = true;
     }
    
     private void Update()
@@ -119,6 +123,12 @@ public class GameManager : MonoBehaviour
 
    private void SwitchLevels()
    {
+       if (isFirstLV)
+       {
+           CurrentLevel = GameLevel.LEVELTWO;
+           EventsManager.Instance.OnBMGSwitch("Level2");
+           return;
+       }
        int level = Random.Range(1, 3);
        if (level == 1)
        {
@@ -153,12 +163,16 @@ public class GameManager : MonoBehaviour
        StartCoroutine(ShowGameOverUI(1.5f));
    }
    
-   private static IEnumerator ShowGameOverUI(float waitDuration)
+   private IEnumerator ShowGameOverUI(float waitDuration)
    {
        
        yield return new WaitForSeconds(waitDuration);
        Time.timeScale = 0;
        Instance.UIManager.ToggleGameOverScreen();
+       yield return DatabaseManager.Instance.Leaderboard.SubmitScoreRoutine(Instance.PlayerEntity.playerScore);
+
+       //yield return leaderboard.SubmitScoreRoutine(Instance.PlayerEntity.playerScore);
+
        
        
    }
@@ -191,6 +205,7 @@ public class GameManager : MonoBehaviour
 
    public void QuitToMenu()
    {
+
        Destroy(gameObject);
        Time.timeScale = 1;
        SceneManager.LoadScene(0);
@@ -224,6 +239,8 @@ public class GameManager : MonoBehaviour
            pickup.SetActive(false);
        }
    }
+   
+   
 
    private IEnumerator MagnetiseCoins()
    {

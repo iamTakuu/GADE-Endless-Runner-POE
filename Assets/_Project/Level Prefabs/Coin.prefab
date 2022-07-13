@@ -112,6 +112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 50
+  coinSFX: {fileID: 8300000, guid: 109bbaa69bc10fd4c88927d165666d3b, type: 3}
 --- !u!54 &6987895340710999233
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -110,6 +110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65dcc0d135ee79d449d86b2061180b7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BossSlam: {fileID: 8300000, guid: 1b333f311044ace40aaab2ff5d6c9cbf, type: 3}
 --- !u!143 &327444889455809133
 CharacterController:
   m_ObjectHideFlags: 0
